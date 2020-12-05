@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/css/styles.css" rel="stylesheet">
+
+</head>
+<body>
+<p id="test" th:text="'Hello, ' + ${name} + '!'" />
+
+<div class="game-field">
+    <div class="field-row">
+        <div id="cell1_1" class="field-cell cell-closed" data-x="1" data-y="1"></div>
+        <div id="cell1_2" class="field-cell cell-closed" data-x="2" data-y="1"></div>
+        <div id="cell1_3" class="field-cell cell-closed" data-x="3" data-y="1"></div>
+        <div id="cell1_4" class="field-cell cell-closed" data-x="4" data-y="1"></div>
+        <div id="cell1_5" class="field-cell cell-closed" data-x="5" data-y="1"></div>
+    </div>
+    <div class="field-row">
+        <div id="cell2_1" class="field-cell cell-closed" data-x="1" data-y="2"></div>
+        <div id="cell2_2" class="field-cell cell-closed" data-x="2" data-y="2"></div>
+        <div id="cell2_3" class="field-cell cell-closed" data-x="3" data-y="2"></div>
+        <div id="cell2_4" class="field-cell cell-closed" data-x="4" data-y="2"></div>
+        <div id="cell2_5" class="field-cell cell-closed" data-x="5" data-y="2"></div>
+    </div>
+    <div class="field-row">
+        <div id="cell3_1" class="field-cell cell-closed" data-x="1" data-y="3"></div>
+        <div id="cell3_2" class="field-cell cell-closed" data-x="2" data-y="3"></div>
+        <div id="cell3_3" class="field-cell cell-closed" data-x="3" data-y="3"></div>
+        <div id="cell3_4" class="field-cell cell-closed" data-x="4" data-y="3"></div>
+        <div id="cell3_5" class="field-cell cell-closed" data-x="5" data-y="3"></div>
+    </div>
+</div>
+<script src="/js/script.js"></script>
+</body>
+</html>

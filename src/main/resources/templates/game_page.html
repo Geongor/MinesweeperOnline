@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Minesweeper Game</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+    <div id="param_form">
+        <form id="field_param" action="" method="post">
+            <input type="number" name="width" value="20">
+            <input type="number" name="height" value="10">
+            <input type="number" name="minesCount" value="20">
+            <input type="button" value="OK" id="param_btn">
+        </form>
+    </div>
+
+    <div class="game-field">
+        <!--div class="field-row" th:each="i : ${field}">
+            <div class="field-cell cell-closed" th:each="j : ${i}" th:id="${'cell' + iStat.index + '_' + jStat.index}" th:attr="data-x=${jStat.index}, data-y=${iStat.index}"></div>
+        </div-->
+    </div>
+    <p id="gameTime"></p>
+    <script src="/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+.game-field {
+  padding: 2px;
+  border: 3px solid #464646;
+  background-color: #000;
+  padding-left: 35px;
+  padding-right: 35px;
+  display: table;
+  justify-content: center;
+}
+
+.field-row {
+   display: table-row;
+   flex-wrap: no-wrap;
+}
+
+.field-cell{
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    margin: 0px;
+    border: 0px solid black;
+    background-color: #464646;
+    background-size: cover;
+    display: table-cell;
+    flex-wrap: no-wrap;
+}
+
+.cell-closed{
+    background-image: url(../img/cell.jpg);
+}
+
+.cell-opened-1 {
+    background-image: url(../img/type1.jpg);
+}
+.cell-opened-2 {
+    background-image: url(../img/type2.jpg);
+}
+.cell-opened-3 {
+    background-image: url(../img/type3.jpg);
+}
+.cell-opened-4 {
+    background-image: url(../img/type4.jpg);
+}
+.cell-opened-5 {
+    background-image: url(../img/type5.jpg);
+}
+.cell-opened-6 {
+    background-image: url(../img/type6.jpg);
+}
+.cell-opened-7 {
+    background-image: url(../img/type7.jpg);
+}
+.cell-opened-8 {
+    background-image: url(../img/type8.jpg);
+}
+.cell-mine {
+    background-image: url(../img/mine.jpg);
+}
+.cell-opened {
+    background-image: url(../img/cell_clear.jpg);
+}
+.cell-flag {
+    background-image: url(../img/flag.jpg);
+}
+
+.direction-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.direction-row{
+    display: flex;
+    flex-direction: row;
+}
