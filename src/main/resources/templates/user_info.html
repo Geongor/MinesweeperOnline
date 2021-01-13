@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.getUsername()}"></title>
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="div-table">
+        <div class="div-row"><label th:text="${'Имя пользователя: ' + user.getUsername()}"></label> </div>
+        <div class="div-row"><label th:text="${'Сыграно игр: ' + matches.size()}"></label> </div>
+        <div class="div-table2">
+            <div class="div-row" th:each="i : ${matches}" >
+                <label th:text="${'Поле: ' + i.getFieldWidth() + 'X' + i.getFieldHeight() + ' кол-во мин: - ' + i.getMinesCount() + ' статус: -  ' + i.getGameStatus()}" ></label>
+            </div>
+        </div>
+        <div class="div-row"><label th:text="${'Размер инвентаря: ' + inventory.size()}"></label> </div>
+        <div class="div-table2">
+            <div class="div-row" th:each="i : ${inventory}" >
+                <label th:text="${'Предмет: ' + i.getTypeName() + ', количество: ' +  i.getAmount() + 'шт'}" ></label>
+                <form method="post" id="delete_item_btn" th:action="@{'/admin/user_info/' + ${user.getUsername()} + '/delete_item'}"><input name="item" type="hidden" th:value="${i.getId()}"><input id="delete" type="submit" value="Удалить"></form>
+            </div>
+            <br>
+            <form method="post" th:action="@{'/admin/user_info/' + ${user.getUsername()} + '/add_item'}">
+                <label>Тип: </label>
+                <select name="type">
+                    <option th:each="type : ${types}" th:value="${type.getId()}" th:utext="${type.getName()}" th:title="${type.getDescription()}"></option>
+                </select>
+                <label>Количество: </label><input name="amount" type="number" title="Количество">
+                <input type="submit" value="Добавить">
+            </form>
+        </div>
+    </div>
+    <br>
+    <div><a th:href="@{'/admin/user_info/' + ${user.getUsername()} + '/report'}" target="_blank">Получить отчет</a></div>
+    <script src="/js/script.js"></script>
+</body>
+</html>

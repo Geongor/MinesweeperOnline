@@ -22,7 +22,7 @@ import java.util.Map;
 public class GameController {
 
     @Autowired
-    private MatchServiceImpl matchService;
+    MatchServiceImpl matchService;
 
     @PostMapping("/cell") //проверить адрес
     public @ResponseBody
@@ -34,10 +34,14 @@ public class GameController {
             gameField.startGame();
         }
 
-        //Match match = new Match(gameField.getWidth(), gameField.getHeight(), 1, "win", gameField.getStartTime(), gameField.getStartTime(), (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        //matchService.saveMatch(match);
+        cellsToChange = gameField.getMapOfCellsToChange(cell, cellsToChange);
 
-        return gameField.getMapOfCellsToChange(cell, cellsToChange);
+        if (gameField.getEndTime() != null) {
+
+            matchService.saveMatch(gameField.getMatch());
+        }
+
+        return cellsToChange;
 
     }
 

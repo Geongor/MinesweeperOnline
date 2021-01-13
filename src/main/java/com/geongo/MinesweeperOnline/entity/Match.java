@@ -78,6 +78,10 @@ public class Match {
         return startTime;
     }
 
+    public String getGameStatus() {
+        return gameStatus;
+    }
+
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }

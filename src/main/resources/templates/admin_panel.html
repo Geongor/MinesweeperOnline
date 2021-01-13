@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="div-table">
+        <div class="div-row"><div>Имя пользователя</div></div>
+        <div th:each="i : ${users}" class="div-row">
+            <label th:text="${i.getUsername()}" ></label><form method="get" th:action="@{'/admin/user_info/' + ${i.getUsername()}}"><input name="username" type="hidden" th:value="${i.getUsername()}"><input type="submit" value="подробнее"></form>
+        </div>
+    </div>
+</body>
+</html>

@@ -9,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Component
 public class GameField {
 
     private int width;
@@ -23,13 +21,11 @@ public class GameField {
     private Cell[][] field;
     private boolean isGameStarted = false;
 
-
     private Date startTime;
-    private Date endTime;
+    private Date endTime = null;
     private final SimpleDateFormat gameTimeFormat = new SimpleDateFormat("mm:ss:SSS");
+    private Match match;
 
-    @Autowired
-    private MatchServiceImpl matchService;
 
     public GameField(int width, int height, int minesCou0nt) {
         newField(width, height, minesCount);
@@ -263,11 +259,17 @@ public class GameField {
         cellsToChange.put("gameTime", gameTimeFormat.format(endTime.getTime()-startTime.getTime()));
         cellsToChange.put("status", gameStatus);
 
-        Match match = new Match(width, height, minesCount, gameStatus, startTime, endTime, (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        match = new Match(width, height, minesCount, gameStatus, startTime, endTime, (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 
-        matchService.saveMatch(match);
+    }
 
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Cell[][] getField() {
@@ -296,6 +298,18 @@ public class GameField {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
+    }
+
+    public SimpleDateFormat getGameTimeFormat() {
+        return gameTimeFormat;
     }
 
     public void newField(int width, int height, int minesCount){

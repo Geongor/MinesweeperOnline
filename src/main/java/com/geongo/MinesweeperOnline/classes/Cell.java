@@ -9,7 +9,6 @@ enum cellTypes{
     EMPTY, CLOSED, NUMBER_1, NUMBER_2, NUMBER_3, NUMBER_4, NUMBER_5, NUMBER_6, NUMBER_7, NUMBER_8, MINE, NONE;
 }
 
-@Component
 public class Cell {
     private String id = null;
     private Point position;
@@ -23,8 +22,6 @@ public class Cell {
         this.id = "cell"+y+"_"+x;
     }
 
-    public Cell() {
-    }
 
     public boolean isSame(Cell cell){
 

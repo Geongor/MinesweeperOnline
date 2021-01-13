@@ -21,7 +21,10 @@ public class MainController {
         GameField gameField = new GameField(20,10,20);
         model.addAttribute("field",gameField.getField());
         session.setAttribute("gameField", gameField);
+
+
         return "game_page";
     }
+
 
 }
