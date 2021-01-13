@@ -3,6 +3,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    justify-content: space-around;
+    flex-direction: column;
 }
 
 .div-table2{
@@ -107,4 +109,25 @@ body {
 .direction-row{
     display: flex;
     flex-direction: row;
+}
+
+.auth div{
+    width:600px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+.auth label{
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+.auth input:not([type = "submit"]){
+    width: 300px;
+}
+a{
+    color: black;
+    text-decoration: none;
+    font-size: 16pt;
+    font-family: "Comic Sans MS", cursive, sans-serif;
 }

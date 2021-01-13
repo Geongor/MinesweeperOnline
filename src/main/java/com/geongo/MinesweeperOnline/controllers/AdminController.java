@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -30,7 +32,10 @@ public class AdminController {
     @GetMapping("/admin")
     public String userList(Model model) {
 
-        model.addAttribute("users", userService.allUsers());
+        ArrayList<User> users = (ArrayList<User>) userService.allUsers();
+        Collections.sort(users);
+
+        model.addAttribute("users", users);
 
 
         return "admin_panel";
