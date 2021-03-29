@@ -1,7 +1,7 @@
     $( document ).ready(function() {
 
         $.ajax ({
-                        url: "new_field",
+                        url: "field/new",
                         type: "POST",
                         data: $("#field_param").serialize(),
                         dataType: "html",
@@ -44,12 +44,12 @@
             });
         }
 
-        $(".game-field").on("mousedown", ".cell-closed" ,function (e){
+        $(".game").on("mousedown", ".cell-closed" ,function (e){
             if (e.button == 2){
                 $(this).toggleClass("cell-flag");
             } else {
                 $.ajax ({
-                            url: "cell",
+                            url: "field/cell",
                             type: "POST",
                             data: "id=" + $(this).attr("id") + "&x=" + $(this).data("x") + "&y=" + $(this).data("y"),
                             dataType: "html",
@@ -62,7 +62,7 @@
         $("#field_param").on("mousedown", "#param_btn" ,function (e){
 
             $.ajax ({
-                url: "new_field",
+                url: "field/new",
                 type: "POST",
                 data: $("#field_param").serialize(),
                 dataType: "html",

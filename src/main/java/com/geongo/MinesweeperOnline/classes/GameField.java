@@ -2,16 +2,12 @@ package com.geongo.MinesweeperOnline.classes;
 
 import com.geongo.MinesweeperOnline.entity.Match;
 import com.geongo.MinesweeperOnline.entity.User;
-import com.geongo.MinesweeperOnline.services.MatchService;
-import com.geongo.MinesweeperOnline.services.UserService;
-import com.geongo.MinesweeperOnline.services.impl.MatchServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Map;
+import java.util.Random;
 
 public class GameField {
 
@@ -27,7 +23,7 @@ public class GameField {
     private Match match;
 
 
-    public GameField(int width, int height, int minesCou0nt) {
+    public GameField(int width, int height, int minesCount) {
         newField(width, height, minesCount);
 
     }

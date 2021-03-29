@@ -3,6 +3,7 @@ package com.geongo.MinesweeperOnline.services.impl;
 import com.geongo.MinesweeperOnline.entity.Match;
 import com.geongo.MinesweeperOnline.entity.User;
 import com.geongo.MinesweeperOnline.repos.MatchRepository;
+import com.geongo.MinesweeperOnline.repos.UserRepository;
 import com.geongo.MinesweeperOnline.services.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,16 @@ public class MatchServiceImpl implements MatchService {
 
     @Autowired
     private MatchRepository matchRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public boolean saveMatch(Match match) {
 
         matchRepository.save(match);
+        User user = match.getUser();
+        user.addExperience(300);
+        userRepository.save(user);
 
         return true;
     }

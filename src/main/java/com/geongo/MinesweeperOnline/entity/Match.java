@@ -1,10 +1,13 @@
 package com.geongo.MinesweeperOnline.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "matches")
+@Data
 public class Match {
 
     @Id
@@ -32,70 +35,6 @@ public class Match {
     }
 
     public Match() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getFieldWidth() {
-        return fieldWidth;
-    }
-
-    public void setFieldWidth(int fieldWidth) {
-        this.fieldWidth = fieldWidth;
-    }
-
-    public int getFieldHeight() {
-        return fieldHeight;
-    }
-
-    public void setFieldHeight(int fieldHeight) {
-        this.fieldHeight = fieldHeight;
-    }
-
-    public int getMinesCount() {
-        return minesCount;
-    }
-
-    public void setMinesCount(int minesCount) {
-        this.minesCount = minesCount;
-    }
-
-    public String isGameStatus() {
-        return gameStatus;
-    }
-
-    public void setGameStatus(String gameStatus) {
-        this.gameStatus = gameStatus;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public String getGameStatus() {
-        return gameStatus;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     public void setUser(User user) {

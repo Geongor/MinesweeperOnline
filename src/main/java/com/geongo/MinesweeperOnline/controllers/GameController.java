@@ -24,7 +24,7 @@ public class GameController {
     @Autowired
     MatchServiceImpl matchService;
 
-    @PostMapping("/cell") //проверить адрес
+    @PostMapping("/field/cell") //проверить адрес
     public @ResponseBody
     Map<String, String> cellChoose(@ModelAttribute(value = "cell") Cell cell, GameField gameField) {
 
@@ -45,7 +45,7 @@ public class GameController {
 
     }
 
-    @PostMapping("/new_field")
+    @PostMapping("/field/new")
     public @ResponseBody
     Map<String, Integer> createNewFiled(Model model, GameField gameField, HttpSession session, @RequestParam int width,
                                  @RequestParam int height, @RequestParam int minesCount) {

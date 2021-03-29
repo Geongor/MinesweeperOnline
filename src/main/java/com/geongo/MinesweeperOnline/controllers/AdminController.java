@@ -41,7 +41,7 @@ public class AdminController {
         return "admin_panel";
     }
 
-    @GetMapping("/admin/user_info/{username}")
+    @GetMapping("/admin/user/{username}")
     public String userInfo(Model model, @PathVariable("username") String username){
 
         User user = (User) userService.loadUserByUsername(username);
@@ -57,16 +57,16 @@ public class AdminController {
         return "user_info";
     }
 
-    @PostMapping("/admin/user_info/{username}/delete_item")
+    @PostMapping("/admin/user/{username}/item/delete")
     public String  delete_item(Model model, @PathVariable("username") String username, @ModelAttribute(value = "item") Item item){
 
         item.setUser(null);
         itemService.saveItem(item);
 
-        return "redirect:/admin/user_info/" + username;
+        return "redirect:/admin/user/" + username;
     }
 
-    @PostMapping("/admin/user_info/{username}/add_item")
+    @PostMapping("/admin/user/{username}/item/add")
     public String  add_item(Model model, @PathVariable("username") String username, @ModelAttribute(value = "item") Item item){
 
         Item checkItem = itemService.findByType(item.getType(), (User) userService.loadUserByUsername(username));
@@ -80,10 +80,10 @@ public class AdminController {
             itemService.saveItem(item);
         }
 
-        return "redirect:/admin/user_info/" + username;
+        return "redirect:/admin/user/" + username;
     }
 
-    @GetMapping("/admin/user_info/{username}/report")
+    @GetMapping("/admin/user/{username}/report")
     public String getReport(Model model, @PathVariable("username") String username){
 
         User user = (User) userService.loadUserByUsername(username);
