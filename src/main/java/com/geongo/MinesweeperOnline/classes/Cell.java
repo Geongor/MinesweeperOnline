@@ -5,10 +5,6 @@ import org.springframework.stereotype.Component;
 import javax.swing.text.Position;
 import java.awt.*;
 
-enum cellTypes{
-    EMPTY, CLOSED, NUMBER_1, NUMBER_2, NUMBER_3, NUMBER_4, NUMBER_5, NUMBER_6, NUMBER_7, NUMBER_8, MINE, NONE;
-}
-
 public class Cell {
     private String id = null;
     private Point position;

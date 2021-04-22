@@ -15,10 +15,9 @@ public class GameField {
     private int height;
     private int minesCount;
     private Cell[][] field;
-    private boolean isGameStarted = false;
-
     private Date startTime;
     private Date endTime = null;
+
     private final SimpleDateFormat gameTimeFormat = new SimpleDateFormat("mm:ss:SSS");
     private Match match;
 
@@ -31,7 +30,7 @@ public class GameField {
     public GameField() {
     }
 
-    public void generateField(){
+    public void generateField(Cell cell){
 
         Random rnd = new Random();
         int minesToGenerate = minesCount;
@@ -41,7 +40,7 @@ public class GameField {
             while (true){
                 x = rnd.nextInt(width);
                 y = rnd.nextInt(height);
-                if (field[y][x].getTrueCellType() != cellTypes.MINE){
+                if (field[y][x].getTrueCellType() != cellTypes.MINE && !field[y][x].isSame(cell)){
                     field[y][x].setTrueCellType(cellTypes.MINE);
                     minesToGenerate--;
                     break;
@@ -240,14 +239,12 @@ public class GameField {
     }
 
     public boolean isGameStarted() {
-        return isGameStarted;
+        return this.startTime != null;
     }
 
-    public void startGame() {
-        isGameStarted = true;
+    public void startGame(Cell cell) {
         startTime = new Date();
-        System.out.println(startTime.toString());
-        this.generateField();
+        this.generateField(cell);
     }
 
     public void finishGame(Map<String,String> cellsToChange, String gameStatus){
@@ -312,7 +309,8 @@ public class GameField {
         this.width = width;
         this.height = height;
         this.minesCount = minesCount;
-        this.isGameStarted = false;
+        this.startTime = null;
+        this.endTime = null;
 
         this.field = new Cell[height][width];
         for (int i = 0; i<height; i++){

@@ -16,4 +16,7 @@ public class ItemTypeService {
     public List<ItemType> findAll(){
         return itemTypeRepository.findAll();
     }
+    public ItemType findByName(String name){
+        return itemTypeRepository.findByName(name);
+    }
 }

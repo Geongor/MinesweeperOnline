@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +68,7 @@ public class AdminController {
     @PostMapping("/admin/user/{username}/item/add")
     public String  add_item(Model model, @PathVariable("username") String username, @ModelAttribute(value = "item") Item item){
 
-        Item checkItem = itemService.findByType(item.getType(), (User) userService.loadUserByUsername(username));
+        Item checkItem = itemService.findByTypeAndUser(item.getType(), (User) userService.loadUserByUsername(username));
 
         if (checkItem != null){
             checkItem.setAmount(item.getAmount() + checkItem.getAmount());

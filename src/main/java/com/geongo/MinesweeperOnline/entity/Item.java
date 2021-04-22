@@ -27,6 +27,11 @@ public class Item {
     public Item() {
     }
 
+    public void reduceAmount(){
+        if (amount > 0) amount--;
+
+    }
+
     public Long getId() {
         return id;
     }

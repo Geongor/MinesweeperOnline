@@ -100,6 +100,9 @@ body {
 .cell-flag {
     background-image: url(../img/flag.jpg);
 }
+.item-locator {
+    background-image: url(../img/locator.jpg);
+}
 
 .direction-column{
     display: flex;
@@ -130,4 +133,18 @@ a{
     text-decoration: none;
     font-size: 16pt;
     font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.item{
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    min-width: 40px;
+    min-height: 40px;
+    background-size: cover;
+}
+
+.cell-selected{
+    border: 2px solid black;
+
 }

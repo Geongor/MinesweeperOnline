@@ -1,3 +1,4 @@
+    var itemSelected = "none";
     $( document ).ready(function() {
 
         $.ajax ({
@@ -44,10 +45,28 @@
             });
         }
 
+        function updateField(response) {
+
+            var cells = JSON.parse(response);
+            for (key in cells){
+                $("#" + key).toggleClass(cells[key], true);
+            }
+
+        }
+
         $(".game").on("mousedown", ".cell-closed" ,function (e){
-            if (e.button == 2){
-                $(this).toggleClass("cell-flag");
-            } else {
+            console.log(e.button)
+            if (itemSelected == "locator"){
+                $.ajax ({
+                    url: "field/item/locator",
+                    type: "POST",
+                    data: "id=" + $(this).attr("id") + "&x=" + $(this).data("x") + "&y=" + $(this).data("y"),
+                    dataType: "html",
+                    success: updateField
+                });
+            } else if (e.button == 2){
+                $(this).toggleClass("cell-flag cell-closed");
+            } else if (e.button == 0){
                 $.ajax ({
                             url: "field/cell",
                             type: "POST",
@@ -57,6 +76,14 @@
                         });
 
             }
+        });
+
+        $(".game").on("mousedown", ".cell-flag" ,function (e){
+            if (e.button == 2){
+                $(this).toggleClass("cell-flag cell-closed");
+            }
+
+
         });
 
         $("#field_param").on("mousedown", "#param_btn" ,function (e){
@@ -70,6 +97,37 @@
             });
 
         });
+
+        $(".item").on("mousedown", function (e) {
+            if (itemSelected == "locator") itemSelected = "none"
+            else itemSelected = "locator";
+
+        })
+
+        $(".game").on({
+            mouseenter: function () {
+                if (itemSelected == "locator"){
+                    var x = $(this).attr("data-x");
+                    var y = $(this).attr("data-y");
+                    for (var i = y-1; i < Number(y)+2; i++){
+                        for (var j = x-1; j < Number(x)+2; j++){
+                            $("#cell" + i + "_" + j).toggleClass("cell-selected");
+                        }
+                    }
+                }
+            },
+            mouseleave: function () {
+                if (itemSelected == "locator"){
+                    var x = $(this).attr("data-x");
+                    var y = $(this).attr("data-y");
+                    for (var i = y-1; i < Number(y)+2; i++){
+                        for (var j = x-1; j < Number(x)+2; j++){
+                            $("#cell" + i + "_" + j).toggleClass("cell-selected");
+                        }
+                    }
+                }
+            }
+        }, ".field-cell");
 
         document.oncontextmenu = function() {return false;};
 
