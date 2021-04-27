@@ -6,6 +6,7 @@ import com.geongo.MinesweeperOnline.entity.Item;
 import com.geongo.MinesweeperOnline.entity.Match;
 import com.geongo.MinesweeperOnline.entity.User;
 import com.geongo.MinesweeperOnline.services.ItemService;
+import com.geongo.MinesweeperOnline.services.UserService;
 import com.geongo.MinesweeperOnline.services.impl.MatchServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -26,7 +27,6 @@ public class GameController {
 
     @Autowired
     MatchServiceImpl matchService;
-
     @Autowired
     ItemService itemService;
 
@@ -39,7 +39,6 @@ public class GameController {
 
             gameField.startGame(cell);
         }
-
         cellsToChange = gameField.getMapOfCellsToChange(cell, cellsToChange);
 
         if (gameField.getEndTime() != null) {
@@ -69,9 +68,14 @@ public class GameController {
     public @ResponseBody
     Map<String, String> useItemLocator(@ModelAttribute(value = "cell") Cell cell, GameField gameField, HttpSession session){
 
-        session.getAttribute("inventory");
-
         return itemService.useLocator(gameField.getField(), cell, session);
+
+    }
+    @PostMapping("/field/item/chance")
+    public @ResponseBody
+    Map<String, String> useItemLocator(GameField gameField, HttpSession session){
+
+        return itemService.useChance(gameField, session);
 
     }
 }

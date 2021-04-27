@@ -1,6 +1,7 @@
 package com.geongo.MinesweeperOnline.services;
 
 import com.geongo.MinesweeperOnline.classes.Cell;
+import com.geongo.MinesweeperOnline.classes.GameField;
 import com.geongo.MinesweeperOnline.classes.cellTypes;
 import com.geongo.MinesweeperOnline.entity.Item;
 import com.geongo.MinesweeperOnline.entity.ItemType;
@@ -46,7 +47,6 @@ public class ItemService {
 
         List<Item> inventory = (List<Item>) session.getAttribute("inventory");
         Map<String,String> cellsToUpdate = new HashMap<>();
-
         for (Item item : inventory){
             if (item.getType().getName().equals("locator")) {
 
@@ -70,5 +70,20 @@ public class ItemService {
         session.setAttribute("inventory", inventory);
 
         return cellsToUpdate;
+    }
+
+    public Map<String, String> useChance(GameField gameField, HttpSession session){
+        List<Item> inventory = (List<Item>) session.getAttribute("inventory");
+        Map<String,String> toUpdate = new HashMap<>();
+        for (Item item : inventory){
+            if (item.getType().getName().equals("chance") && item.getAmount() > 0){
+                item.reduceAmount();
+                itemRepository.save(item);
+                gameField.setItemSelected("chance");
+                toUpdate.put(".item-chance", "cell-selected");
+                break;
+            }
+        }
+        return toUpdate;
     }
 }

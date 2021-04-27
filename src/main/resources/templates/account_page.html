@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${user.getUsername()}"></title>
+  <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+<a href="/">Вернуться назад</a>
+<div class="div-table">
+  <div class="div-row"><label th:text="${'Имя пользователя: ' + user.getUsername()}"></label> </div>
+  <div class="div-row"><label th:text="${'Сыграно игр: ' + matches.size()}"></label> </div>
+  <div class="div-row"><label th:text="${'Уровень: ' + user.getLevel()}"></label> </div>
+  <div class="div-row"><label th:text="${'Опыт: ' + user.getExperience()}"></label> </div>
+  <div class="div-row"><label th:text="${'Кол-во денях: ' + user.getMoney()}"></label> </div>
+  <div class="div-row"><label th:text="${'Размер инвентаря: ' + inventory.size()}"></label> </div>
+  <div class="div-table2">
+    <div class="div-row" th:each="i : ${inventory}" >
+      <div th:class="${'item item-' + i.getTypeName()}"></div>
+      <label th:text="${'Количество: ' +  i.getAmount() + 'шт'}" ></label>
+    </div>
+  </div>
+</div>
+<script src="/js/script.js"></script>
+</body>
+</html>

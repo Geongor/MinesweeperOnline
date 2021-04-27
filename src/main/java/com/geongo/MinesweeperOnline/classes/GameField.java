@@ -2,6 +2,7 @@ package com.geongo.MinesweeperOnline.classes;
 
 import com.geongo.MinesweeperOnline.entity.Match;
 import com.geongo.MinesweeperOnline.entity.User;
+import lombok.Data;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
+@Data
 public class GameField {
 
     private int width;
@@ -20,6 +22,8 @@ public class GameField {
 
     private final SimpleDateFormat gameTimeFormat = new SimpleDateFormat("mm:ss:SSS");
     private Match match;
+
+    private String itemSelected = "none";
 
 
     public GameField(int width, int height, int minesCount) {
@@ -116,10 +120,14 @@ public class GameField {
         switch (findCellInField(cell).getTrueCellType()){
 
             case MINE: {
-                finishGame(cellsToChange, "lose");
-                System.out.println(endTime.toString());
-                cellsToChange.put(cell.getId(), "cell-mine");
-                field[cell.getPosition().y][cell.getPosition().x].setVisible(true);
+                if (this.itemSelected.equals("chance")){
+                    cellsToChange.put(cell.getId(), "cell-flag");
+                    this.itemSelected = "none";
+                } else {
+                    finishGame(cellsToChange, "lose");
+                    cellsToChange.put(cell.getId(), "cell-mine");
+                    field[cell.getPosition().y][cell.getPosition().x].setVisible(true);
+                }
                 break;
             }
             case EMPTY: {
@@ -255,54 +263,6 @@ public class GameField {
         match = new Match(width, height, minesCount, gameStatus, startTime, endTime, (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public Cell[][] getField() {
-        return field;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Match getMatch() {
-        return match;
-    }
-
-    public void setMatch(Match match) {
-        this.match = match;
-    }
-
-    public SimpleDateFormat getGameTimeFormat() {
-        return gameTimeFormat;
     }
 
     public void newField(int width, int height, int minesCount){

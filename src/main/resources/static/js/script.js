@@ -10,16 +10,18 @@
                     });
 
         function funcSuccess (response) {
-            var cells = JSON.parse(response);
+            var cells = response;
             for (key in cells) {
                 if (key == "status" && cells[key] == "win"){
                     $("#gameTime").html(cells["gameTime"]);
                     $(".game-field").unbind("mousedown");
-                    alert("You WIN!!!");
+                    $("#status").html("победили")
+                    $("#zatemnenie").css("display", "block")
                 } else if (key == "status" && cells[key] == "lose"){
                     $("#gameTime").html(cells["gameTime"]);
                     $(".game-field").unbind("mousedown");
-                    alert("You LOSE!!!");
+                    $("#status").html("проиграли")
+                    $("#zatemnenie").css("display", "block")
                 } else {
                     $("#" + key).removeClass("cell-closed").addClass(cells[key]);
                 }
@@ -47,21 +49,32 @@
 
         function updateField(response) {
 
-            var cells = JSON.parse(response);
+            var cells = response;
             for (key in cells){
                 $("#" + key).toggleClass(cells[key], true);
+                $("#" + key).toggleClass("cell-closed");
             }
 
         }
 
+        function selectChance(responce) {
+            for (key in responce){
+                $(key).toggleClass(responce[key], true);
+            }
+        }
+
         $(".game").on("mousedown", ".cell-closed" ,function (e){
-            console.log(e.button)
+
+            var dataObj = new Object();
+            dataObj.id = $(this).attr("id");
+            dataObj.x = $(this).data("x");
+            dataObj.y = $(this).data("y");
             if (itemSelected == "locator"){
                 $.ajax ({
                     url: "field/item/locator",
                     type: "POST",
-                    data: "id=" + $(this).attr("id") + "&x=" + $(this).data("x") + "&y=" + $(this).data("y"),
-                    dataType: "html",
+                    data: dataObj,
+                    dataType: "JSON",
                     success: updateField
                 });
             } else if (e.button == 2){
@@ -70,8 +83,8 @@
                 $.ajax ({
                             url: "field/cell",
                             type: "POST",
-                            data: "id=" + $(this).attr("id") + "&x=" + $(this).data("x") + "&y=" + $(this).data("y"),
-                            dataType: "html",
+                            data: dataObj,
+                            dataType: "JSON",
                             success: funcSuccess
                         });
 
@@ -98,10 +111,19 @@
 
         });
 
-        $(".item").on("mousedown", function (e) {
+        $(".item-locator").on("mousedown", function (e) {
             if (itemSelected == "locator") itemSelected = "none"
             else itemSelected = "locator";
 
+        })
+        $(".item-chance").on("mousedown", function (e) {
+            $(".item-chance").unbind("mousedown");
+            $.ajax ({
+                url: "field/item/chance",
+                type: "POST",
+                dataType: "JSON",
+                success: selectChance
+            });
         })
 
         $(".game").on({
@@ -128,6 +150,10 @@
                 }
             }
         }, ".field-cell");
+
+        $(".close").on("mousedown", function (e) {
+            $("#zatemnenie").css("display", "none")
+        })
 
         document.oncontextmenu = function() {return false;};
 

@@ -23,6 +23,7 @@ public class User implements UserDetails, Comparable<User>, Serializable {
     private String password;
     private int level = 1;
     private int experience = 0;
+    private int money = 0;
     @Transient
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)

@@ -73,4 +73,24 @@ public class UserService implements UserDetailsService {
         return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
     }
+
+    public boolean addMoney(User user, int moneyAmount){
+
+        user.setMoney(user.getMoney() + moneyAmount);
+        userRepository.save(user);
+
+        return true;
+    }
+
+    public boolean reduceMoney(User user, int moneyAmount){
+
+        if (user.getMoney() >= moneyAmount) {
+            user.setMoney(user.getMoney() - moneyAmount);
+            userRepository.save(user);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

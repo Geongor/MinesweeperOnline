@@ -8,6 +8,14 @@
     <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
+    <div id="zatemnenie">
+        <div id="okno">
+            <p>Вы <span id="status"></span>!!!</p>
+            <p>Опыта получено: 300 ед.</p>
+            <p>Денег получено: 500 ед.</p>
+            <a href="#" class="close">Закрыть</a>
+        </div>
+    </div>
     <a href="/">Вернуться на главную</a>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
@@ -29,8 +37,13 @@
         </div>
     </div>
 
-    <div class="item item-locator">
+    <div class="direction-row">
+        <div class="item item-locator">
 
+        </div>
+        <div class="item item-chance">
+
+        </div>
     </div>
 
     <p id="gameTime"></p>
