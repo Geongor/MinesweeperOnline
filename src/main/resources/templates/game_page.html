@@ -38,11 +38,8 @@
     </div>
 
     <div class="direction-row">
-        <div class="item item-locator">
-
-        </div>
-        <div class="item item-chance">
-
+        <div th:each="i : ${items}" th:class="${'item item-text item-' + i.getTypeName()}">
+            <p th:id="${i.getTypeName()}" th:text="${i.getAmount()}"></p>
         </div>
     </div>
 

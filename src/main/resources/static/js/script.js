@@ -51,15 +51,23 @@
 
             var cells = response;
             for (key in cells){
-                $("#" + key).toggleClass(cells[key], true);
-                $("#" + key).toggleClass("cell-closed");
+                if (key == "locator") {
+                    $("#locator").html(cells[key]);
+                } else {
+                    $("#" + key).toggleClass(cells[key], true);
+                    $("#" + key).toggleClass("cell-closed");
+                }
             }
 
         }
 
         function selectChance(responce) {
             for (key in responce){
-                $(key).toggleClass(responce[key], true);
+                if (key == "chance"){
+                    $("#chance").html(responce[key]);
+                } else {
+                    $(key).toggleClass(responce[key], true);
+                }
             }
         }
 
@@ -114,7 +122,6 @@
         $(".item-locator").on("mousedown", function (e) {
             if (itemSelected == "locator") itemSelected = "none"
             else itemSelected = "locator";
-
         })
         $(".item-chance").on("mousedown", function (e) {
             $(".item-chance").unbind("mousedown");

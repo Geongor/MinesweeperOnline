@@ -62,6 +62,7 @@ public class ItemService {
                     }
                 }
                 item.reduceAmount();
+                cellsToUpdate.put("locator", String.valueOf(item.getAmount()));
                 itemRepository.save(item);
                 break;
             }
@@ -81,6 +82,7 @@ public class ItemService {
                 itemRepository.save(item);
                 gameField.setItemSelected("chance");
                 toUpdate.put(".item-chance", "cell-selected");
+                toUpdate.put("chance", String.valueOf(item.getAmount()));
                 break;
             }
         }
