@@ -26,6 +26,11 @@
                     $("#" + key).removeClass("cell-closed").addClass(cells[key]);
                 }
             }
+            console.log();
+            if(response['chanceUsed']){
+                $('.alert-success').show("fast");
+                setTimeout(hideSavedAlert, 5000);
+            }
         }
 
         function rebuildField (response) {
@@ -188,3 +193,15 @@ bombCount.change(function () {
         $(this).val(maxBombCount);
     }
 });
+
+$('.bonus div:not(".item-chance")').click(function () {
+    $(this).parent().toggleClass('active');
+});
+$('.item-chance').click(function () {
+    $(this).parent().addClass('active').removeClass('cell-selected');
+});
+$('.alert-success').hide();
+
+function hideSavedAlert() {
+    $('.alert-success').hide("slow");
+}

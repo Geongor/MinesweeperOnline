@@ -27,6 +27,20 @@
             <input type="button" value="OK" id="param_btn" class="btn btn-primary btn-block my-3">
         </form>
     </div>
+    <div class="alert alert-success" role="alert">
+        You have been saved!
+    </div>
+    <div class="timer my-3 ">
+        <h4 class="h4">Timer: </h4>
+        <p id="gameTime"></p>
+    </div>
+    <div class="direction-row mt-2 mb-3">
+        <div th:each="i : ${items}" class="bonus">
+            <div  th:class="${'item item-text item-' + i.getTypeName()}">
+                <p th:id="${i.getTypeName()}" th:text="${i.getAmount()}"></p>
+            </div>
+        </div>
+    </div>
     <div class="game">
         <div class="game-field">
             <!--div class="field-row" th:each="i : ${field}">
@@ -35,18 +49,8 @@
         </div>
     </div>
 
-    <div class="timer my-3 ">
-        <h4 class="h4">Timer: </h4>
-        <p id="gameTime"></p>
-    </div>
 
-    <div class="direction-row">
-        <div th:each="i : ${items}" class="bonus">
-            <div  th:class="${'item item-text item-' + i.getTypeName()}">
-                <p th:id="${i.getTypeName()}" th:text="${i.getAmount()}"></p>
-            </div>
-        </div>
-    </div>
+
 
     <script src="/js/script.js"></script>
 </body>

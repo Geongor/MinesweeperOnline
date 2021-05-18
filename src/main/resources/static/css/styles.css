@@ -35,7 +35,6 @@ body {
     display: block;
 }
 .game-field {
-    margin: 50px 0;
     padding: 2px;
     border: 3px solid rgba(0,0,0,0.2);
     display: table;
@@ -146,7 +145,6 @@ a{
 
 .cell-selected{
     border: 2px solid black;
-
 }
 
 .input-amount{
@@ -204,6 +202,7 @@ header{
     justify-content: space-between;
     width: 100%;
     padding-top: 10px;
+    font-size: 20px;
 }
 header #logo{
     display: flex;
@@ -213,6 +212,7 @@ header #logo{
 header .items{
     display: flex;
     justify-content: space-between;
+    padding-right: 50px;
 }
 header .items p{
     padding: 0 10px;
@@ -232,9 +232,16 @@ header a:hover{
 .direction-row .bonus{
     background-color: rgba(103, 0, 253, 0.4)!important;
     border-radius: 50px;
-    height: 50px;
-    width: 50px;
+    height: 55px;
+    width: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.bonus.active{
+    background-color: rgba(255, 53, 92, 0.91) !important;
+}
+
+.item-chance.cell-selected{
+    border: 0!important;
 }
