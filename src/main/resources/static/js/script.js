@@ -119,7 +119,10 @@
                 type: "POST",
                 data: $("#field_param").serialize(),
                 dataType: "html",
-                success: rebuildField
+                success: function (response) {
+                    rebuildField(response);
+                    $('.bonus').removeClass('active');
+                }
             });
 
         });
