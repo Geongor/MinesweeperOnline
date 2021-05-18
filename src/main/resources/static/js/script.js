@@ -166,6 +166,25 @@
 
     });
 
+let bombCount = $('#count');
+let fieldWidth = $('#width');
+let fieldHeight = $('#height');
+let maxBombCount;
 
 
+fieldHeight.change(function () {
+    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+    bombCount.attr('max', maxBombCount);
+});
 
+fieldWidth.change(function () {
+    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+    bombCount.attr('max', maxBombCount);
+});
+
+bombCount.change(function () {
+    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+    if($(this).val() > maxBombCount){
+        $(this).val(maxBombCount);
+    }
+});

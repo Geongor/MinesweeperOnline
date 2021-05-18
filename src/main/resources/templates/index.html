@@ -4,14 +4,17 @@
     <title>Стартовая Minesweeper Online</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 <body>
+    <header th:insert="layouts/header::header"></header>
 
-<p><a href="/main">Play</a></p>
-<p><a href="/shop">Shop</a></p>
-<p><a href="/account">Account</a></p>
-<p><a href="/admin">Admin panel</a></p>
-<p><a href="/login">Login</a></p>
-<p><a href="/registration">Registration</a></p>
+<!--    if the user is logged in -->
+    <div class="game-control">
+        <p><a href="/main">Play</a></p>
+        <p><a href="/shop">Shop</a></p>
+    </div>
+<!--    -->
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -7,6 +7,8 @@
   <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
+<header th:insert="layouts/header::header"></header>
+  <h3>Кошелёк: <span th:text="${money}"></span></h3>
   <form class="direction-row" th:each="type : ${types}" method="post" action="/shop/buy" >
     <div th:class="${'item item-' + type.getName()}"></div>
     <input type="hidden" name="type" th:value="${type.getId()}">
