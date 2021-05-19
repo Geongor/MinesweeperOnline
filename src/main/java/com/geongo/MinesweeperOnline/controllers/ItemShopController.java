@@ -33,6 +33,8 @@ public class ItemShopController {
     public String shop(Model model){
 
         model.addAttribute("types", itemTypeService.findAll());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("money", user.getMoney());
 
         return "shop_page";
     }

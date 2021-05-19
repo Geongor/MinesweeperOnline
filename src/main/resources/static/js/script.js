@@ -1,4 +1,5 @@
-    var itemSelected = "none";
+var itemSelected = "none";
+let isUsed = false;
     $( document ).ready(function() {
 
         $.ajax ({
@@ -25,6 +26,11 @@
                 } else {
                     $("#" + key).removeClass("cell-closed").addClass(cells[key]);
                 }
+            }
+            console.log();
+            if(response['chanceUsed']){
+                $('.alert-success').show("fast");
+                setTimeout(hideSavedAlert, 5000);
             }
         }
 
@@ -114,7 +120,11 @@
                 type: "POST",
                 data: $("#field_param").serialize(),
                 dataType: "html",
-                success: rebuildField
+                success: function (response) {
+                    isUsed = false;
+                    rebuildField(response);
+                    $('.bonus').removeClass('active');
+                }
             });
 
         });
@@ -124,13 +134,16 @@
             else itemSelected = "locator";
         })
         $(".item-chance").on("mousedown", function (e) {
-            $(".item-chance").unbind("mousedown");
-            $.ajax ({
-                url: "field/item/chance",
-                type: "POST",
-                dataType: "JSON",
-                success: selectChance
-            });
+            // $(".item-chance").unbind("mousedown");
+            if (!isUsed) {
+                $.ajax({
+                    url: "field/item/chance",
+                    type: "POST",
+                    dataType: "JSON",
+                    success: selectChance
+                });
+                isUsed = true;
+            }
         })
 
         $(".game").on({
@@ -166,6 +179,37 @@
 
     });
 
+let bombCount = $('#count');
+let fieldWidth = $('#width');
+let fieldHeight = $('#height');
+let maxBombCount;
 
 
+fieldHeight.change(function () {
+    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+    bombCount.attr('max', maxBombCount);
+});
 
+fieldWidth.change(function () {
+    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+    bombCount.attr('max', maxBombCount);
+});
+
+bombCount.change(function () {
+    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+    if($(this).val() > maxBombCount){
+        $(this).val(maxBombCount);
+    }
+});
+
+$('.bonus div:not(".item-chance")').click(function () {
+    $(this).parent().toggleClass('active');
+});
+$('.item-chance').click(function () {
+    $(this).parent().addClass('active').removeClass('cell-selected');
+});
+$('.alert-success').hide();
+
+function hideSavedAlert() {
+    $('.alert-success').hide("slow");
+}

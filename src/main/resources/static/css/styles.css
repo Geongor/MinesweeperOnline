@@ -3,7 +3,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-around;
     flex-direction: column;
 }
 
@@ -36,13 +35,10 @@ body {
     display: block;
 }
 .game-field {
-  padding: 2px;
-  border: 3px solid #464646;
-  background-color: #000;
-  padding-left: 35px;
-  padding-right: 35px;
-  display: table;
-  justify-content: center;
+    padding: 2px;
+    border: 3px solid rgba(0,0,0,0.2);
+    display: table;
+    justify-content: center;
 }
 
 .field-row {
@@ -134,7 +130,6 @@ body {
 a{
     color: black;
     text-decoration: none;
-    font-size: 16pt;
     font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
@@ -145,12 +140,11 @@ a{
     min-width: 40px;
     min-height: 40px;
     background-size: cover;
-    margin-right: 5px;
+    border-radius: 50px;
 }
 
 .cell-selected{
     border: 2px solid black;
-
 }
 
 .input-amount{
@@ -199,4 +193,55 @@ a{
     display: grid;
     align-items: end;
     color: white;
+}
+header{
+    display: flex!important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+    font-size: 20px;
+}
+header #logo{
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+}
+header .items{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 50px;
+}
+header .items p{
+    padding: 0 10px;
+}
+header a{
+    color: black;
+}
+
+header a:hover{
+    text-decoration: underline black;
+    color: black;
+}
+.direction-row{
+    justify-content: space-around;
+    width: 150px;
+}
+.direction-row .bonus{
+    background-color: rgba(103, 0, 253, 0.4)!important;
+    border-radius: 50px;
+    height: 55px;
+    width: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bonus.active{
+    background-color: rgba(255, 53, 92, 0.91) !important;
+}
+
+.item-chance.cell-selected{
+    border: 0!important;
 }

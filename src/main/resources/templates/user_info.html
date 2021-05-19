@@ -7,6 +7,7 @@
     <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
+<header th:insert="layouts/header::header"></header>
     <a href="/admin">Вернуться назад</a>
     <div class="div-table">
         <div class="div-row"><label th:text="${'Имя пользователя: ' + user.getUsername()}"></label> </div>

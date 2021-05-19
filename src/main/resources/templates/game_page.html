@@ -6,8 +6,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/config.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<header th:insert="layouts/header::header"></header>
     <div id="zatemnenie">
         <div id="okno">
             <p>Вы <span id="status"></span>!!!</p>
@@ -16,19 +19,28 @@
             <a href="#" class="close">Закрыть</a>
         </div>
     </div>
-    <a href="/">Вернуться на главную</a>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
-    <div id="param_form">
-        <form id="field_param" action="" method="post">
-            <input type="number" name="width" value="20">
-            <input type="number" name="height" value="10">
-            <input type="number" name="minesCount" value="20">
-            <input type="button" value="OK" id="param_btn">
+    <div id="param_form ">
+        <form id="field_param" action="" method="post" class="w-400">
+            <div class="field-row w-400 my-2">Width: <input id="width" class="form-control w-400" type="number" name="width" value="20" min="5" max="100"></div>
+            <div class="field-row w-400 my-2">Height: <input id="height" class="form-control w-400" type="number" name="height" value="10" min="5" max="80"></div>
+            <div class="field-row w-400 my-2">Bomb count: <input id="count" class="form-control w-400" type="number" name="minesCount" value="1"  min="2"></div>
+            <input type="button" value="OK" id="param_btn" class="btn btn-primary btn-block my-3">
         </form>
     </div>
-
+    <div class="alert alert-success" role="alert">
+        You have been saved!
+    </div>
+    <div class="timer my-3 ">
+        <h4 class="h4">Timer: </h4>
+        <p id="gameTime"></p>
+    </div>
+    <div class="direction-row mt-2 mb-3">
+        <div th:each="i : ${items}" class="bonus">
+            <div  th:class="${'item item-text item-' + i.getTypeName()}">
+                <p th:id="${i.getTypeName()}" th:text="${i.getAmount()}"></p>
+            </div>
+        </div>
+    </div>
     <div class="game">
         <div class="game-field">
             <!--div class="field-row" th:each="i : ${field}">
@@ -37,13 +49,9 @@
         </div>
     </div>
 
-    <div class="direction-row">
-        <div th:each="i : ${items}" th:class="${'item item-text item-' + i.getTypeName()}">
-            <p th:id="${i.getTypeName()}" th:text="${i.getAmount()}"></p>
-        </div>
-    </div>
 
-    <p id="gameTime"></p>
+
+
     <script src="/js/script.js"></script>
 </body>
 </html>

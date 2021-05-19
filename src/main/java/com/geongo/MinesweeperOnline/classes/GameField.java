@@ -122,6 +122,7 @@ public class GameField {
             case MINE: {
                 if (this.itemSelected.equals("chance")){
                     cellsToChange.put(cell.getId(), "cell-flag");
+                    cellsToChange.put("chanceUsed", "true");
                     this.itemSelected = "none";
                 } else {
                     finishGame(cellsToChange, "lose");
