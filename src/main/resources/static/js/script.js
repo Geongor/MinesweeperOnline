@@ -1,4 +1,5 @@
-    var itemSelected = "none";
+var itemSelected = "none";
+let isUsed = false;
     $( document ).ready(function() {
 
         $.ajax ({
@@ -120,6 +121,7 @@
                 data: $("#field_param").serialize(),
                 dataType: "html",
                 success: function (response) {
+                    isUsed = false;
                     rebuildField(response);
                     $('.bonus').removeClass('active');
                 }
@@ -132,13 +134,16 @@
             else itemSelected = "locator";
         })
         $(".item-chance").on("mousedown", function (e) {
-            $(".item-chance").unbind("mousedown");
-            $.ajax ({
-                url: "field/item/chance",
-                type: "POST",
-                dataType: "JSON",
-                success: selectChance
-            });
+            // $(".item-chance").unbind("mousedown");
+            if (!isUsed) {
+                $.ajax({
+                    url: "field/item/chance",
+                    type: "POST",
+                    dataType: "JSON",
+                    success: selectChance
+                });
+                isUsed = true;
+            }
         })
 
         $(".game").on({
