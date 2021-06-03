@@ -3,17 +3,40 @@
 <head>
     <title>Стартовая Minesweeper Online</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="/css/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/boxicon.min.css">
+    <link rel="stylesheet" href="css/config.css">
 </head>
 <body>
     <header th:insert="layouts/header::header"></header>
 
 <!--    if the user is logged in -->
-    <div class="game-control">
-        <p><a href="/main">Play</a></p>
-        <p><a href="/shop">Shop</a></p>
-    </div>
+    <main class="mt-5 container">
+        <h1 class="h1 text-center">Minesweeper</h1>
+        <div class="w-100 my-5 text-center">
+            <img src="img/main.png" alt="Minesweeper">
+        </div>
+        <div class="game-control row">
+            <div class="d-flex justify-content-center">
+                <h2 class="h2 mx-3"><a href="/main"><i class='bx bx-play'></i> Play</a></h2>
+                <h2 class="h2 mx-3"><a href="/shop"><i class='bx bx-shopping-bag' ></i>Shop</a></h2>
+            </div>
+        </div>
+        <div class="col my-5">
+            <h2 class="h2 border-bottom">Welcome to World of Minesweeper <i class='bx bx-smile' ></i></h2>
+            <p>Playing minesweeper is our passion. That's why we strive to make it the greatest game in the world!</p>
+            <p>Select a difficulty level to challenge yourself, and enjoy the game!</p>
+        </div>
+        <div class="col my-5">
+            <h2 class="h2 border-bottom">Rules <i class='bx bx-list-ul' ></i></h2>
+            <p>
+                Minesweeper rules are very simple. The board is divided into cells, with mines randomly distributed.
+                To win, you need to open all the cells. The number on a cell shows the number of mines adjacent to it.
+                Using this information, you can determine cells that are safe, and cells that contain mines.
+                Cells suspected of being mines can be marked with a flag using the right mouse button.
+            </p>
+        </div>
+    </main>
 <!--    -->
     <script src="js/bootstrap.min.js"></script>
 </body>
