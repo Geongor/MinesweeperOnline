@@ -185,17 +185,23 @@ let fieldHeight = $('#height');
 let maxBombCount;
 
 
-fieldHeight.change(function () {
+fieldHeight.on('keyup change', function() {
     maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
     bombCount.attr('max', maxBombCount);
+    if($(this).val() > 80){
+        $(this).val(80);
+    }
 });
 
-fieldWidth.change(function () {
+fieldWidth.on('keyup change', function() {
     maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
     bombCount.attr('max', maxBombCount);
+    if($(this).val() > 80){
+        $(this).val(80);
+    }
 });
 
-bombCount.change(function () {
+bombCount.on('keyup change', function() {
     maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
     if($(this).val() > maxBombCount){
         $(this).val(maxBombCount);

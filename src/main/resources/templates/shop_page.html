@@ -4,17 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <title>Item shop</title>
-  <link href="/css/styles.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/boxicon.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/config.css">
 </head>
-<body>
-<header th:insert="layouts/header::header"></header>
-  <h3>Кошелёк: <span th:text="${money}"></span></h3>
-  <form class="direction-row" th:each="type : ${types}" method="post" action="/shop/buy" >
-    <div th:class="${'item item-' + type.getName()}"></div>
-    <input type="hidden" name="type" th:value="${type.getId()}">
-    <label th:text="${'Стоимость (шт): ' + type.getCost()} + ' '"></label>
-    <label>Количество: </label><input name="amount" type="number" title="Количество" class="input-amount" required>
-    <input type="submit" value="Купить" style="display: block; margin: 10px 0px 0px auto;">
-  </form>
+<body class="d-block">
+
+  <header th:insert="layouts/header::header"></header>
+
+  <main class="container mt-10">
+
+    <form class="direction-row my-5 align-content-center w-50 m-auto" th:each="type : ${types}" method="post" action="/shop/buy" >
+      <div th:class="${'item item-' + type.getName()}"></div>
+      <input type="hidden" name="type" th:value="${type.getId()}">
+      <label th:text="${'Стоимость (шт): ' + type.getCost()} + ' '"></label>
+      <label>Количество: </label><input name="amount" type="number" title="Количество" class="form-control w-50" required>
+      <input type="submit" value="Купить" class="btn btn-success text-white">
+    </form>
+    <h3 class="h3 my-5 text-end border-bottom">Кошелёк: <span th:text="${money}"></span></h3>
+
+    <div class="col my-5">
+      <h2 class="h2 border-bottom">Item locator</h2>
+      <div class="item item-locator my-3"></div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus itaque quis quisquam soluta! Inventore mollitia placeat reprehenderit sapiente veritatis.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus itaque quis quisquam soluta! </p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus itaque quis quisquam soluta! Inventore mollitia placeat reprehenderit sapiente veritatis.</p>
+    </div>
+
+    <div class="col my-5">
+      <h2 class="h2 border-bottom">Item chance</h2>
+      <div class="item item-chance my-3"></div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus itaque quis quisquam soluta! Inventore mollitia placeat reprehenderit sapiente veritatis.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus itaque quis quisquam soluta! </p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus itaque quis quisquam soluta! Inventore mollitia placeat reprehenderit sapiente veritatis.</p>
+    </div>
+  </main>
 </body>
 </html>
