@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -19,15 +20,15 @@ public class MatchServiceImpl implements MatchService {
     private UserService userService;
 
     @Override
-    public boolean saveMatch(Match match) {
+    public Map<String, String> saveMatch(Match match, Map<String, String> cellsToChange) {
 
         matchRepository.save(match);
         User user = match.getUser();
-        user.addExperience(300);
+        cellsToChange.put("experience", String.valueOf(userService.addExperience(match, user)));
         userService.addMoney(user, 500);
-        userService.saveUser(user);
+        userService.save(user);
 
-        return true;
+        return cellsToChange;
     }
 
     public List<Match> getAllMatchesByUser(User user){

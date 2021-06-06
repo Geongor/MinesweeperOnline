@@ -43,7 +43,7 @@ public class GameController {
 
         if (gameField.getEndTime() != null) {
 
-            matchService.saveMatch(gameField.getMatch());
+            matchService.saveMatch(gameField.getMatch(), cellsToChange);
         }
 
         return cellsToChange;

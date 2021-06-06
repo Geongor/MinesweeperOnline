@@ -18,11 +18,13 @@ let isUsed = false;
                     $(".game-field").unbind("mousedown");
                     $("#status").html("победили")
                     $("#zatemnenie").css("display", "block")
+                    $("#experience").html(cells['experience']);
                 } else if (key == "status" && cells[key] == "lose"){
                     $("#gameTime").html(cells["gameTime"]);
                     $(".game-field").unbind("mousedown");
                     $("#status").html("проиграли")
                     $("#zatemnenie").css("display", "block")
+                    $("#experience").html(cells['experience']);
                 } else {
                     $("#" + key).removeClass("cell-closed").addClass(cells[key]);
                 }

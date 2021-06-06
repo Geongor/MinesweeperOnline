@@ -261,7 +261,8 @@ public class GameField {
         cellsToChange.put("gameTime", gameTimeFormat.format(endTime.getTime()-startTime.getTime()));
         cellsToChange.put("status", gameStatus);
 
-        match = new Match(width, height, minesCount, gameStatus, startTime, endTime, (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        match = new Match(width, height, minesCount, gameStatus, startTime, endTime,
+                (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 
     }

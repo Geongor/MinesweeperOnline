@@ -1,5 +1,6 @@
 package com.geongo.MinesweeperOnline.services;
 
+import com.geongo.MinesweeperOnline.entity.Match;
 import com.geongo.MinesweeperOnline.entity.Role;
 import com.geongo.MinesweeperOnline.entity.User;
 import com.geongo.MinesweeperOnline.repos.RoleRepository;
@@ -61,6 +62,11 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+    public boolean save(User user){
+        userRepository.save(user);
+        return true;
+    }
+
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
@@ -74,10 +80,25 @@ public class UserService implements UserDetailsService {
                 .setParameter("paramId", idMin).getResultList();
     }
 
+    public int addExperience(Match match, User user){
+
+
+        int cellsCount = match.getFieldHeight() * match.getFieldWidth();
+        int userExperience = (cellsCount - (cellsCount / match.getMinesCount()));
+        if (userExperience + user.getExperience() >= 10000){
+            user.setExperience(userExperience + user.getExperience() - 10000);
+            user.setLevel(user.getLevel() + 1);
+        } else {
+            user.setExperience(userExperience + user.getExperience());
+        }
+        return userExperience;
+
+    }
+
     public boolean addMoney(User user, int moneyAmount){
 
         user.setMoney(user.getMoney() + moneyAmount);
-        userRepository.save(user);
+        //userRepository.save(user);
 
         return true;
     }

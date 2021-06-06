@@ -29,15 +29,6 @@ public class User implements UserDetails, Comparable<User>, Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public void addExperience(int experience){
-
-        if (this.experience + experience > 1000){
-            this.level++;
-            this.experience = this.experience + experience - 1000;
-        } else {
-            this.experience+=experience;
-        }
-    }
 
     @Override
     public boolean isAccountNonExpired() {
