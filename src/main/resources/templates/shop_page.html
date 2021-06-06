@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Item shop</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/boxicon.min.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -15,14 +16,19 @@
 
   <main class="container mt-10">
 
+    <h3 class="h3 my-5 text-start border-bottom">Кошелёк: <span th:text="${money}"></span></h3>
     <form class="direction-row my-5 align-content-center w-50 m-auto" th:each="type : ${types}" method="post" action="/shop/buy" >
       <div th:class="${'item item-' + type.getName()}"></div>
       <input type="hidden" name="type" th:value="${type.getId()}">
-      <label th:text="${'Стоимость (шт): ' + type.getCost()} + ' '"></label>
-      <label>Количество: </label><input name="amount" type="number" title="Количество" class="form-control w-50" required>
+      <label>
+        Стоимость (шт):
+        <span class="price" th:text="${'' + type.getCost()} + ''"></span>
+        <br>
+        <span class="amount"></span>
+      </label>
+      <label>Количество: </label><input name="amount" type="number" title="Количество" class="form-control w-70p" required min="1">
       <input type="submit" value="Купить" class="btn btn-success text-white">
     </form>
-    <h3 class="h3 my-5 text-end border-bottom">Кошелёк: <span th:text="${money}"></span></h3>
 
     <div class="col my-5">
       <h2 class="h2 border-bottom">Item locator</h2>
@@ -40,5 +46,8 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque doloribus itaque quis quisquam soluta! Inventore mollitia placeat reprehenderit sapiente veritatis.</p>
     </div>
   </main>
+
+  <script src="/js/script.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

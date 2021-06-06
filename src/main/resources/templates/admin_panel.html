@@ -10,12 +10,25 @@
 </head>
 <body>
 <header th:insert="layouts/header::header"></header>
-    <a href="/">Вернуться на главную</a>
-    <div class="div-table">
-        <div class="div-row"><div>Имя пользователя</div></div>
-        <div th:each="i : ${users}" class="div-row">
-            <label th:text="${i.getUsername()}" ></label><form method="get" th:action="@{'/admin/user/' + ${i.getUsername()}}"><input name="username" type="hidden" th:value="${i.getUsername()}"><input type="submit" value="подробнее"></form>
-        </div>
+    <div class="container">
+        <div class="row text-center"><a href="/" class="text-center">Вернуться на главную</a></div>
+        <table class="table table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Имя пользователя</th>
+                    <th scope="col" class="text-end pe-4">Действие</th>
+                </tr>
+            </thead>
+                <tr th:each="i : ${users}">
+                    <td><label th:text="${i.getUsername()}" ></label></td>
+                    <td class="text-right d-flex justify-content-end">
+                        <form method="get" th:action="@{'/admin/user/' + ${i.getUsername()}}">
+                            <input name="username" type="hidden" th:value="${i.getUsername()}">
+                            <input type="submit" class="btn btn-info text-white" value="подробнее">
+                        </form>
+                    </td>
+                </tr>
+        </table>
     </div>
 </body>
 </html>

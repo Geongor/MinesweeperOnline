@@ -5,42 +5,81 @@
     <meta charset="UTF-8">
     <title th:text="${user.getUsername()}"></title>
     <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/config.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/boxicon.min.css">
 </head>
 <body>
-<header th:insert="layouts/header::header"></header>
-    <a href="/admin">Вернуться назад</a>
-    <div class="div-table">
-        <div class="div-row"><label th:text="${'Имя пользователя: ' + user.getUsername()}"></label> </div>
-        <div class="div-row"><label th:text="${'Сыграно игр: ' + matches.size()}"></label> </div>
-        <!--div class="div-table2">
-            <div class="div-row" th:each="i : ${matches}" >
-                <label th:text="${'Поле: ' + i.getFieldWidth() + 'X' + i.getFieldHeight() + ' кол-во мин: - ' + i.getMinesCount() + ' статус: -  ' + i.getGameStatus()}" ></label>
-            </div>
-        </div-->
-        <div class="div-row"><label th:text="${'Уровень: ' + user.getLevel()}"></label> </div>
-        <div class="div-row"><label th:text="${'Опыт: ' + user.getExperience()}"></label> </div>
-        <div class="div-row"><label th:text="${'Кол-во денях: ' + user.getMoney()}"></label> </div>
-        <div class="div-row"><label th:text="${'Размер инвентаря: ' + inventory.size()}"></label> </div>
-        <div class="div-table2">
-            <div class="div-row" th:each="i : ${inventory}" >
-                <label th:text="${'Предмет: ' + i.getTypeName() + ', количество: ' +  i.getAmount() + 'шт'}" ></label>
-                <form method="post" id="delete_item_btn" th:action="@{'/admin/user/' + ${user.getUsername()} + '/item/delete'}"><input name="item" type="hidden" th:value="${i.getId()}"><input id="delete" type="submit" value="Удалить"></form>
-            </div>
-            <br>
-            <form method="post" th:action="@{'/admin/user/' + ${user.getUsername()} + '/item/add'}">
-                <label>Тип: </label>
-                <select name="type">
-                    <option th:each="type : ${types}" th:value="${type.getId()}" th:utext="${type.getName()}" th:title="${type.getDescription()}"></option>
-                </select>
-                <label>Количество: </label><input name="amount" type="number" title="Количество" required>
-                <input type="submit" value="Добавить" style="display: block; margin: 10px 0px 0px auto;">
-            </form>
-        </div>
-    </div>
-    <br>
-    <div><a th:href="@{'/admin/user/' + ${user.getUsername()} + '/report'}" target="_blank">Получить отчет</a></div>
+    <header th:insert="layouts/header::header"></header>
+    <main class="container">
+        <div class="row text-center"><a href="/" class="text-center">Вернуться на главную</a></div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Значение</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>Имя пользователя</td>
+                    <td><label th:text="${user.getUsername()}"></label></td>
+                </tr>
+                <tr>
+                    <td>Сыграно игр</td>
+                    <td><label th:text="${matches.size()}"></label></td>
+                </tr>
+                <tr>
+                    <td>Уровень</td>
+                    <td><label th:text="${user.getLevel()}"></label></td>
+                </tr>
+                <tr>
+                    <td>Опыт</td>
+                    <td><label th:text="${user.getExperience()}"></label></td>
+                </tr>
+                <tr>
+                    <td>Бюджет</td>
+                    <td><label th:text="${user.getMoney()}"></label></td>
+                </tr>
+                <tr>
+                    <td>Размер инвентаря</td>
+                    <td><label th:text="${inventory.size()}"></label></td>
+                </tr>
+            </table>
+            <table class="table my-3">
+                <thead>
+                    <tr>
+                        <th>Предмет</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tr th:each="i : ${inventory}" >
+                    <td><label th:text="${'Предмет: ' + i.getTypeName() + ', количество: ' +  i.getAmount() + 'шт'}" ></label></td>
+                    <td>
+                        <form method="post" id="delete_item_btn" th:action="@{'/admin/user/' + ${user.getUsername()} + '/item/delete'}">
+                            <input name="item" type="hidden" th:value="${i.getId()}">
+                            <input id="delete" type="submit" value="Удалить" class="btn btn-danger text-white">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <form method="post" class="d-flex align-items-center" th:action="@{'/admin/user/' + ${user.getUsername()} + '/item/add'}">
+                            <label class="pe-2">Тип: </label>
+                            <select name="type" class="form-select w-300p">
+                                <option th:each="type : ${types}" th:value="${type.getId()}" th:utext="${type.getName()}" th:title="${type.getDescription()}"></option>
+                            </select>
+                            <div class="input-group">
+                                <input type="number" class="form-control w-300p" name="amount" placeholder="Количество" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <input class="btn btn-outline-success" type="submit" value="Добавить">
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        <div class="row text-center"><a th:href="@{'/admin/user/' + ${user.getUsername()} + '/report'}" target="_blank">Получить отчет</a></div>
+    </main>
     <script src="/js/script.js"></script>
 </body>
 </html>

@@ -20,36 +20,47 @@
             <a href="#" class="close">Закрыть</a>
         </div>
     </div>
-    <div id="param_form ">
-        <form id="field_param" action="" method="post" class="w-400">
-            <div class="field-row w-400 my-2">Width: <input id="width" class="form-control w-400" type="number" name="width" value="20" min="5" max="100"></div>
-            <div class="field-row w-400 my-2">Height: <input id="height" class="form-control w-400" type="number" name="height" value="10" min="5" max="80"></div>
-            <div class="field-row w-400 my-2">Bomb count: <input id="count" class="form-control w-400" type="number" name="minesCount" value="1"  min="2"></div>
-            <input type="button" value="OK" id="param_btn" class="btn btn-primary btn-block my-3">
+    <div id="param_form" class="mt-100p">
+        <form id="field_param" action="" method="post" class="d-flex align-items-center mb-2 mt-5">
+            <div class="field-row h-40p d-flex mx-1">
+                <label for="width" class="d-flex align-items-center">Ширина: </label>
+                <input id="width" class="form-control w-70p mx-1" type="number" name="width" value="20" min="5" max="100">
+            </div>
+            <div class="field-row h-40p d-flex mx-1">
+                <label for="height" class="d-flex align-items-center">Высота: </label>
+                <input id="height" class="form-control w-70p mx-1" type="number" name="height" value="10" min="5" max="80">
+            </div>
+            <div class="field-row h-40p d-flex mx-1">
+                <label for="count" class="d-flex align-items-center">Бомбы: </label>
+                <input id="count" class="form-control w-70p mx-1" type="number" name="minesCount" value="2"  min="2">
+            </div>
+            <input type="button" value="OK" id="param_btn" class="btn btn-primary btn-block my-3 w-70p h-40p">
         </form>
     </div>
     <div class="alert alert-success" role="alert">
         You have been saved!
     </div>
-    <div class="timer my-3 ">
-        <h4 class="h4">Timer: </h4>
-        <p id="gameTime"></p>
+    <div class="timer my-2 container text-center">
+<!--        <h4 class="h4">Timer: </h4>-->
+<!--        <p id="gameTime"></p>-->
+        <i class='bx bx-timer' ></i><label id="minutes">00</label>:<label id="seconds">00</label>
     </div>
-    <div class="direction-row mt-2 mb-3">
-        <div th:each="i : ${items}" class="bonus">
-            <div  th:class="${'item item-text item-' + i.getTypeName()}">
-                <p th:id="${i.getTypeName()}" th:text="${i.getAmount()}"></p>
+    <div class="d-flex">
+        <div class="direction-column mx-3">
+            <div th:each="i : ${items}" class="bonus mb-2">
+                <div  th:class="${'item item-text item-' + i.getTypeName()}">
+                    <p th:id="${i.getTypeName()}" th:text="${i.getAmount()}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="game">
+            <div class="game-field">
+                <!--div class="field-row" th:each="i : ${field}">
+                    <div class="field-cell cell-closed" th:each="j : ${i}" th:id="${'cell' + iStat.index + '_' + jStat.index}" th:attr="data-x=${jStat.index}, data-y=${iStat.index}"></div>
+                </div-->
             </div>
         </div>
     </div>
-    <div class="game">
-        <div class="game-field">
-            <!--div class="field-row" th:each="i : ${field}">
-                <div class="field-cell cell-closed" th:each="j : ${i}" th:id="${'cell' + iStat.index + '_' + jStat.index}" th:attr="data-x=${jStat.index}, data-y=${iStat.index}"></div>
-            </div-->
-        </div>
-    </div>
-
 
 
 
