@@ -1,10 +1,26 @@
 .w-400{
     width: 400px!important;
 }
+.w-300p{
+    width: 300px!important;
+}
+.w-70p{
+    width: 70px!important;
+}
+.h-40p{
+    height: 40px!important;
+}
 a{
     color: black!important;
     text-decoration: none!important;
 }
-.mt-10{
+.mt-10 {
     margin-top: 10rem!important;
+}
+.mt-100p {
+    margin-top: 100px!important;
+}
+.timer label{
+    font-size: 20px;
+
 }

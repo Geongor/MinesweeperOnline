@@ -16,13 +16,19 @@ let isUsed = false;
                 if (key == "status" && cells[key] == "win"){
                     $("#gameTime").html(cells["gameTime"]);
                     $(".game-field").unbind("mousedown");
-                    $("#status").html("победили")
-                    $("#zatemnenie").css("display", "block")
+                    $("#status").html("победили");
+                    $("#zatemnenie").css("display", "block");
+
+                    clearInterval(timer);
+                    timer = null;
                 } else if (key == "status" && cells[key] == "lose"){
                     $("#gameTime").html(cells["gameTime"]);
                     $(".game-field").unbind("mousedown");
                     $("#status").html("проиграли")
                     $("#zatemnenie").css("display", "block")
+
+                    clearInterval(timer);
+                    timer = null;
                 } else {
                     $("#" + key).removeClass("cell-closed").addClass(cells[key]);
                 }
@@ -100,8 +106,10 @@ let isUsed = false;
                             data: dataObj,
                             dataType: "JSON",
                             success: funcSuccess
-                        });
-
+                });
+                if(!timer) {
+                    timer = setInterval(setTime, 1000);
+                }
             }
         });
 
@@ -115,6 +123,9 @@ let isUsed = false;
 
         $("#field_param").on("mousedown", "#param_btn" ,function (e){
 
+            minutesLabel.innerText = "00";
+            secondsLabel.innerText = "00";
+            totalSeconds = 0;
             $.ajax ({
                 url: "field/new",
                 type: "POST",
@@ -202,7 +213,7 @@ fieldWidth.on('keyup change', function() {
 });
 
 bombCount.on('keyup change', function() {
-    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+    maxBombCount = ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1) > 999 ? 999 : ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1);
     if($(this).val() > maxBombCount){
         $(this).val(maxBombCount);
     }
@@ -219,3 +230,38 @@ $('.alert-success').hide();
 function hideSavedAlert() {
     $('.alert-success').hide("slow");
 }
+
+
+//Timer
+let timer = null;
+let minutesLabel = document.getElementById("minutes");
+let secondsLabel = document.getElementById("seconds");
+let totalSeconds = 0;
+
+
+function setTime() {
+    ++totalSeconds;
+    secondsLabel.innerHTML = pad(totalSeconds % 60);
+    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+    let valString = val + "";
+    if (valString.length < 2) {
+        return "0" + valString;
+    } else {
+        return valString;
+    }
+}
+
+//shop
+$('input[name="amount"]').on('keyup change', function() {
+    let price =  $(this).parent('form').children('label').children('span.price').text();
+   if($(this).val() < 1) {
+       $(this).val(1);
+       $(this).parent('form').children('label').children('span.amount').text(price);
+   }
+   else {
+       $(this).parent('form').children('label').children('span.amount').text(price * $(this).val());
+   }
+});
