@@ -39,9 +39,12 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String greeting(Model model) {
+    public String greeting(Model model, @RequestParam(value = "sort", defaultValue = "level") String sort) {
 
-        ArrayList<User> users = (ArrayList<User>) userService.findUsersOrderByLevel();
+        ArrayList<User> users;
+
+        if (sort.equals("record")) users = (ArrayList<User>) userService.findUsersOrderByRecord();
+        else users = (ArrayList<User>) userService.findUsersOrderByLevel();
 
 
         model.addAttribute("users", users);

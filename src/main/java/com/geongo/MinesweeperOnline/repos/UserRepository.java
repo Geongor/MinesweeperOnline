@@ -12,4 +12,5 @@ public interface UserRepository extends JpaRepository<User, Long>, PagingAndSort
     User findByUsername(String username);
     List<User> findAll();
     List<User> findAllByOrderByLevelDesc();
+    List<User> findAllByOrderByRecordDesc();
 }

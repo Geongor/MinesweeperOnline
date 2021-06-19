@@ -11,7 +11,6 @@
 <body>
   <header th:insert="layouts/header::header"></header>
   <main class="container">
-    <div class="row text-center"><a href="/" class="text-center">Вернуться на главную</a></div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -47,7 +46,7 @@
     <div class="div-table2">
       <div class="div-row" th:each="i : ${inventory}" >
         <div th:class="${'item item-' + i.getTypeName()}"></div>
-        <label th:text="${'Количество: ' +  i.getAmount() + 'шт'}" ></label>
+        <label th:text="${i.getAmount() + 'шт'}" ></label>
       </div>
     </div>
   </main>

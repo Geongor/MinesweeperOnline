@@ -14,18 +14,18 @@
             <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="navbar-toggler-success">
                 <div class="flex-fill mx-xl-5 mb-2">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
-                        <li class="nav-item"><a href="/">Home</a></li>
+                        <li class="nav-item"><a href="/">Главная</a></li>
                         <!--    if the user is logged in -->
-                        <li><a href="/main">Play</a></li>
+                        <li><a href="/main">Играть</a></li>
                         <!--    if the user role is admin -->
-                        <li sec:authorize="hasRole('ADMIN')" class="nav-item"><a href="/admin">Admin panel</a></li>
+                        <li sec:authorize="hasRole('ADMIN')" class="nav-item"><a href="/admin">Панель</a></li>
                         <!--    -->
-                        <li sec:authorize="isAuthenticated()" class="nav-item"><a href="/logout">Logout</a></li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item"><a href="/logout">Выйти</a></li>
                         <!--            -->
 
                         <!--    if the user is not logged in -->
-                        <li sec:authorize="isAnonymous()" class="nav-item"><a href="/login">Login</a></li>
-                        <li sec:authorize="isAnonymous()" class="nav-item"><a href="/registration">Registration</a></li>
+                        <li sec:authorize="isAnonymous()" class="nav-item"><a href="/login">Войти</a></li>
+                        <li sec:authorize="isAnonymous()" class="nav-item"><a href="/registration">Регистрация</a></li>
                         <!--            -->
                     </ul>
                 </div>

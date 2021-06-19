@@ -13,7 +13,7 @@ let isUsed = false;
         function funcSuccess (response) {
             var cells = response;
             for (key in cells) {
-                if (key == "status" && cells[key] == "win"){
+                if (key == "status"){
                     $("#gameTime").html(cells["gameTime"]);
                     $(".game-field").unbind("mousedown");
                     $("#status").html("победили");
@@ -21,18 +21,17 @@ let isUsed = false;
 
                     clearInterval(timer);
                     timer = null;
-                    $("#status").html("победили")
+                    if (cells['status'] === 'win'){
+                        $("#status").html("победили")
+                    } else {
+                        $("#status").html("проиграли")
+                    }
                     $("#zatemnenie").css("display", "block")
                     $("#experience").html(cells['experience']);
-                } else if (key == "status" && cells[key] == "lose"){
-                    $("#gameTime").html(cells["gameTime"]);
-                    $(".game-field").unbind("mousedown");
-                    $("#status").html("проиграли")
-                    $("#zatemnenie").css("display", "block")
-
-                    clearInterval(timer);
-                    timer = null;
-                    $("#experience").html(cells['experience']);
+                    $("#money").html(cells['money']);
+                    if (cells['record'] === 'true'){
+                        $("#record").html("Новый рекорд!");
+                    }
                 } else {
                     $("#" + key).removeClass("cell-closed").addClass(cells[key]);
                 }

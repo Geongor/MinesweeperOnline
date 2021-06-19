@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Стартовая Minesweeper Online</title>
+    <title>Главная Minesweeper Online</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/boxicon.min.css">
@@ -19,22 +19,21 @@
         </div>
         <div class="game-control row">
             <div class="d-flex justify-content-center">
-                <h2 class="h2 mx-3"><a href="/main"><i class='bx bx-play'></i> Play</a></h2>
-                <h2 class="h2 mx-3"><a href="/shop"><i class='bx bx-shopping-bag' ></i>Shop</a></h2>
+                <h2 class="h2 mx-3"><a href="/main"><i class='bx bx-play'></i> Играть</a></h2>
+                <h2 class="h2 mx-3"><a href="/shop"><i class='bx bx-shopping-bag' ></i>Магазин</a></h2>
             </div>
         </div>
         <div class="col my-5">
-            <h2 class="h2 border-bottom">Welcome to World of Minesweeper <i class='bx bx-smile' ></i></h2>
-            <p>Playing minesweeper is our passion. That's why we strive to make it the greatest game in the world!</p>
-            <p>Select a difficulty level to challenge yourself, and enjoy the game!</p>
+            <h2 class="h2 border-bottom">Добро пожаловать на Minesweeper Online! <i class='bx bx-smile' ></i></h2>
+            <p>Играть в сапера-наша страсть. Вот почему мы стремимся сделать ее величайшей игрой в мире!</p>
         </div>
         <div class="col my-5">
-            <h2 class="h2 border-bottom">Rules <i class='bx bx-list-ul' ></i></h2>
+            <h2 class="h2 border-bottom">Правила <i class='bx bx-list-ul' ></i></h2>
             <p>
-                Minesweeper rules are very simple. The board is divided into cells, with mines randomly distributed.
-                To win, you need to open all the cells. The number on a cell shows the number of mines adjacent to it.
-                Using this information, you can determine cells that are safe, and cells that contain mines.
-                Cells suspected of being mines can be marked with a flag using the right mouse button.
+                Правила сапера очень просты. Игровое поле разделено на клетки, в которых случайным образом распределены мины.
+                Чтобы победить, вам нужно открыть все клетки не содержащие мины. Число на открытой клетке показывает количество мин, расположенных рядом с ней.
+                Используя эту информацию, вы можете определить безопасные клетки и клетки, содержащие мины.
+                Клетки, подозреваемые в том, что они являются минами, могут быть помечены флажком с помощью правой кнопки мыши.
             </p>
         </div>
     </main>
@@ -48,7 +47,8 @@
         <tr th:each="i : ${users}">
             <td><label th:text="${i.getUsername()}" ></label></td>
             <td><label th:text="${' Уровень: ' + i.getLevel()}" ></label></td>
-            <td><label th:text="${' Рекорд: ' + i.getLevel()}" ></label></td>
+            <td><label th:text="${' Рекорд: ' + i.getRecord()}" ></label></td>
+            <td><label th:text="${' Всего очков: ' + (i.getLevel() * 10000 + i.getExperience())}" ></label></td>
         </tr>
     </table>
 <!--    -->

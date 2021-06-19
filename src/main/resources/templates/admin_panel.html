@@ -11,7 +11,6 @@
 <body>
 <header th:insert="layouts/header::header"></header>
     <div class="container">
-        <div class="row text-center"><a href="/" class="text-center">Вернуться на главную</a></div>
         <table class="table table table-striped">
             <thead>
                 <tr>
@@ -24,7 +23,7 @@
                     <td class="text-right d-flex justify-content-end">
                         <form method="get" th:action="@{'/admin/user/' + ${i.getUsername()}}">
                             <input name="username" type="hidden" th:value="${i.getUsername()}">
-                            <input type="submit" class="btn btn-info text-white" value="подробнее">
+                            <input type="submit" class="btn btn-info text-white" value="Подробнее">
                         </form>
                     </td>
                 </tr>

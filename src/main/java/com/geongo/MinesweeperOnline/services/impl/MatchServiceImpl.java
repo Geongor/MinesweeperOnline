@@ -23,10 +23,11 @@ public class MatchServiceImpl implements MatchService {
     public Map<String, String> saveMatch(Match match, Map<String, String> cellsToChange) {
 
         matchRepository.save(match);
-        User user = match.getUser();
-        cellsToChange.put("experience", String.valueOf(userService.addExperience(match, user)));
-        userService.addMoney(user, 500);
-        userService.save(user);
+        int experience = userService.addExperience(match);
+        cellsToChange.put("record", String.valueOf(userService.updateRecord(match.getUser(), experience)));
+        cellsToChange.put("experience", String.valueOf(experience));
+        cellsToChange.put("money", String.valueOf(userService.addMoney(match)));
+        userService.save(match.getUser());
 
         return cellsToChange;
     }

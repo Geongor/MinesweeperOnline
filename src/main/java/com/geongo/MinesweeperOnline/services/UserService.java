@@ -84,9 +84,13 @@ public class UserService implements UserDetailsService {
     public List<User> findUsersOrderByLevel(){
         return userRepository.findAllByOrderByLevelDesc();
     }
+    public List<User> findUsersOrderByRecord(){
+        return userRepository.findAllByOrderByRecordDesc();
+    }
 
-    public int addExperience(Match match, User user){
+    public int addExperience(Match match){
 
+        User user = match.getUser();
 
         int cellsCount = match.getFieldHeight() * match.getFieldWidth();
         int userExperience = (cellsCount - (cellsCount / match.getMinesCount()));
@@ -103,12 +107,19 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public boolean addMoney(User user, int moneyAmount){
+    public int addMoney(Match match){
 
+        User user = match.getUser();
+
+        int cellsCount = match.getFieldHeight() * match.getFieldWidth();
+        int moneyAmount = (cellsCount - (cellsCount / match.getMinesCount())) / 2;
+        if (match.getGameStatus() == "lose"){
+            moneyAmount /= 10;
+        }
         user.setMoney(user.getMoney() + moneyAmount);
         //userRepository.save(user);
 
-        return true;
+        return moneyAmount;
     }
 
     public boolean reduceMoney(User user, int moneyAmount){
@@ -117,6 +128,15 @@ public class UserService implements UserDetailsService {
             user.setMoney(user.getMoney() - moneyAmount);
             userRepository.save(user);
 
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updateRecord(User user, int experience){
+        if (user.getRecord() < experience){
+            user.setRecord(experience);
             return true;
         } else {
             return false;
