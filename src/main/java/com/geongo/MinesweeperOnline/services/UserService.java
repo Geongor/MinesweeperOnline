@@ -6,6 +6,7 @@ import com.geongo.MinesweeperOnline.entity.User;
 import com.geongo.MinesweeperOnline.repos.RoleRepository;
 import com.geongo.MinesweeperOnline.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -80,11 +81,18 @@ public class UserService implements UserDetailsService {
                 .setParameter("paramId", idMin).getResultList();
     }
 
+    public List<User> findUsersOrderByLevel(){
+        return userRepository.findAllByOrderByLevelDesc();
+    }
+
     public int addExperience(Match match, User user){
 
 
         int cellsCount = match.getFieldHeight() * match.getFieldWidth();
         int userExperience = (cellsCount - (cellsCount / match.getMinesCount()));
+        if (match.getGameStatus() == "lose"){
+            userExperience /= 10;
+        }
         if (userExperience + user.getExperience() >= 10000){
             user.setExperience(userExperience + user.getExperience() - 10000);
             user.setLevel(user.getLevel() + 1);

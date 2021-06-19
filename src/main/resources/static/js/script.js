@@ -37,7 +37,6 @@ let isUsed = false;
                     $("#" + key).removeClass("cell-closed").addClass(cells[key]);
                 }
             }
-            console.log();
             if(response['chanceUsed']){
                 $('.alert-success').show("fast");
                 setTimeout(hideSavedAlert, 5000);
@@ -217,7 +216,8 @@ fieldWidth.on('keyup change', function() {
 });
 
 bombCount.on('keyup change', function() {
-    maxBombCount = ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1) > 999 ? 999 : ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1);
+    maxBombCount = ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1) > 999 ? 999 :
+                                    ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1);
     if($(this).val() > maxBombCount){
         $(this).val(maxBombCount);
     }
