@@ -2,53 +2,66 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Магазин Minesweeper Online</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/boxicon.min.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/config.css">
+    <meta charset="UTF-8">
+    <title>Магазин Minesweeper Online</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/boxicon.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/config.css">
+    <link rel="stylesheet" href="css/config.css">
 </head>
 <body class="d-block">
 
-  <header th:insert="layouts/header::header"></header>
+    <header th:insert="layouts/header::header"></header>
 
-  <main class="container mt-10">
+    <main class="container mt-10">
 
-    <h3 class="h3 my-5 text-start border-bottom">Кошелёк: <span th:text="${money}"></span></h3>
-    <form class="direction-row my-5 align-content-center w-50 m-auto" th:each="type : ${types}" method="post" action="/shop/buy" >
-      <div th:class="${'item item-' + type.getName()}"></div>
-      <input type="hidden" name="type" th:value="${type.getId()}">
-      <label>
-        Стоимость (шт):
-        <span class="price" th:text="${'' + type.getCost()} + ''"></span>
-        <br>
-        <span class="amount"></span>
-      </label>
-      <label>Количество: </label><input name="amount" type="number" title="Количество" class="form-control w-70p" required min="1">
-      <input type="submit" value="Купить" class="btn btn-success text-white">
-    </form>
+        <h3 id="wallet" class="h3 my-5 text-start border-bottom">Кошелёк: <span th:text="${money}"></span></h3>
 
-    <div class="col my-5">
-      <h2 class="h2 border-bottom">Локатор</h2>
-      <div class="item item-locator my-3"></div>
-      <p>Локатор способен обнаружить и автоматически отметить флажком все мины в радиусе 3х3 от выбранной клетки.</p>
-      <p>Выбрав локатор во время игры вы переходите в режим его использования.</p>
-      <p>В данном режиме, при наведении курсора на игровое поле, будет происходить выделение области действия предмета</p>
-    </div>
+        <h4 id="notification" class="h4 text-center my-4 text-danger">У вас недостаточно средств для покупки</h4>
 
-    <div class="col my-5">
-      <h2 class="h2 border-bottom">Второй шанс</h2>
-      <div class="item item-chance my-3"></div>
-      <p>Второй шанс спосебен спасти вас от ошибки или случайного промаха.</p>
-      <p>Выбрав второй шанс вы активируете предмет. После активации он будет действовать до конца данной игры или до тех пор пока вы не ошибетесь.</p>
-      <p>Если при активированном втором шансе нажать клетку с миной вы не проиграете. Мина будет отмечена флажком, а игра продолжиться.</p>
-      <p>Можно использовать один раз за игру</p>
-    </div>
-  </main>
+        <form class="direction-row my-5 align-content-center w-50 m-auto" th:each="type : ${types}" method="post"
+              action="/shop/buy">
+            <div th:class="${'item item-' + type.getName()}"></div>
+            <input type="hidden" name="type" th:value="${type.getId()}">
+            <label class="cost">
+                Стоимость (шт):
+                <span class="price" th:text="${'' + type.getCost()} + ''"></span>
+                <br>
+                <span class="amount"></span>
+            </label>
+            <label>Количество: </label><input name="amount" type="number" title="Количество" class="form-control w-70p"
+                                              required min="1">
+            <input type="button" value="Купить" class="btn btn-success text-white shop-button">
+        </form>
 
-  <script src="/js/script.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
+        <div class="col my-5">
+            <h2 class="h2 border-bottom">Локатор</h2>
+            <div class="item item-locator my-3"></div>
+            <p>Локатор способен обнаружить и автоматически отметить флажком все мины в радиусе 3х3 от выбранной клетки.</p>
+            <p>Выбрав локатор во время игры вы переходите в режим его использования.</p>
+            <p>В данном режиме, при наведении курсора на игровое поле, будет происходить выделение области действия
+                предмета</p>
+        </div>
+
+        <div class="col my-5">
+            <h2 class="h2 border-bottom">Второй шанс</h2>
+            <div class="item item-chance my-3"></div>
+            <p>Второй шанс спосебен спасти вас от ошибки или случайного промаха.</p>
+            <p>Выбрав второй шанс вы активируете предмет. После активации он будет действовать до конца данной игры или до
+                тех пор пока вы не ошибетесь.</p>
+            <p>Если при активированном втором шансе нажать клетку с миной вы не проиграете. Мина будет отмечена флажком, а
+                игра продолжиться.</p>
+            <p>Можно использовать один раз за игру</p>
+        </div>
+    </main>
+
+    <script src="/js/script.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script>
+
+    </script>
 </body>
 </html>

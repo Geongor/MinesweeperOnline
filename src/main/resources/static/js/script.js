@@ -1,196 +1,198 @@
 var itemSelected = "none";
 let isUsed = false;
-    $( document ).ready(function() {
+$(document).ready(function () {
 
-        $.ajax ({
-                        url: "field/new",
-                        type: "POST",
-                        data: $("#field_param").serialize(),
-                        dataType: "html",
-                        success: rebuildField
-                    });
+    $.ajax({
+        url: "field/new",
+        type: "POST",
+        data: $("#field_param").serialize(),
+        dataType: "html",
+        success: rebuildField
+    });
 
-        function funcSuccess (response) {
-            var cells = response;
-            for (key in cells) {
-                if (key == "status"){
-                    $("#gameTime").html(cells["gameTime"]);
-                    $(".game-field").unbind("mousedown");
-                    $("#status").html("победили");
-                    $("#zatemnenie").css("display", "block");
+    function funcSuccess(response) {
+        var cells = response;
+        for (key in cells) {
+            if (key == "status") {
+                $("#gameTime").html(cells["gameTime"]);
+                $(".game-field").unbind("mousedown");
+                $("#status").html("победили");
+                $("#zatemnenie").css("display", "block");
 
-                    clearInterval(timer);
-                    timer = null;
-                    if (cells['status'] === 'win'){
-                        $("#status").html("победили")
-                    } else {
-                        $("#status").html("проиграли")
-                    }
-                    $("#zatemnenie").css("display", "block")
-                    $("#experience").html(cells['experience']);
-                    $("#money").html(cells['money']);
-                    if (cells['record'] === 'true'){
-                        $("#record").html("Новый рекорд!");
-                    }
+                clearInterval(timer);
+                timer = null;
+                if (cells['status'] === 'win') {
+                    $("#status").html("победили")
                 } else {
-                    $("#" + key).removeClass("cell-closed").addClass(cells[key]);
+                    $("#status").html("проиграли")
                 }
-            }
-            if(response['chanceUsed']){
-                $('.alert-success').show("fast");
-                setTimeout(hideSavedAlert, 5000);
-            }
-        }
-
-        function rebuildField (response) {
-            var size = JSON.parse(response);
-            var width = size.width;
-            var height = size.height;
-            $(".game-field").html(function(index, oldHtml){
-                var result = "";
-                for (var i = 0; i < height; i++){
-                    result += "<div class='field-row'>"
-                    for (var j = 0; j < width; j++){
-                        var cell_id = "cell" + i + "_" + j;
-                        result += "<div class='field-cell cell-closed' id=" + cell_id +
-                                " data-x=" + j + " data-y=" + i + "></div>"
-                    }
-                    result += "</div>";
+                $("#zatemnenie").css("display", "block")
+                $("#experience").html(cells['experience']);
+                $("#money").html(cells['money']);
+                if (cells['record'] === 'true') {
+                    $("#record").html("Новый рекорд!");
                 }
-                return result;
-            });
-        }
-
-        function updateField(response) {
-
-            var cells = response;
-            for (key in cells){
-                if (key == "locator") {
-                    $("#locator").html(cells[key]);
-                } else {
-                    $("#" + key).toggleClass(cells[key], true);
-                    $("#" + key).toggleClass("cell-closed");
-                }
-            }
-
-        }
-
-        function selectChance(responce) {
-            for (key in responce){
-                if (key == "chance"){
-                    $("#chance").html(responce[key]);
-                } else {
-                    $(key).toggleClass(responce[key], true);
-                }
+            } else {
+                $("#" + key).removeClass("cell-closed").addClass(cells[key]);
             }
         }
+        if (response['chanceUsed']) {
+            $('.alert-success').show("fast");
+            setTimeout(hideSavedAlert, 5000);
+        }
+    }
 
-        $(".game").on("mousedown", ".cell-closed" ,function (e){
-
-            var dataObj = new Object();
-            dataObj.id = $(this).attr("id");
-            dataObj.x = $(this).data("x");
-            dataObj.y = $(this).data("y");
-            if (itemSelected == "locator"){
-                $.ajax ({
-                    url: "field/item/locator",
-                    type: "POST",
-                    data: dataObj,
-                    dataType: "JSON",
-                    success: updateField
-                });
-            } else if (e.button == 2){
-                $(this).toggleClass("cell-flag cell-closed");
-            } else if (e.button == 0){
-                $.ajax ({
-                            url: "field/cell",
-                            type: "POST",
-                            data: dataObj,
-                            dataType: "JSON",
-                            success: funcSuccess
-                });
-                if(!timer) {
-                    timer = setInterval(setTime, 1000);
+    function rebuildField(response) {
+        var size = JSON.parse(response);
+        var width = size.width;
+        var height = size.height;
+        $(".game-field").html(function (index, oldHtml) {
+            var result = "";
+            for (var i = 0; i < height; i++) {
+                result += "<div class='field-row'>"
+                for (var j = 0; j < width; j++) {
+                    var cell_id = "cell" + i + "_" + j;
+                    result += "<div class='field-cell cell-closed' id=" + cell_id +
+                        " data-x=" + j + " data-y=" + i + "></div>"
                 }
+                result += "</div>";
             }
+            return result;
         });
+    }
 
-        $(".game").on("mousedown", ".cell-flag" ,function (e){
-            if (e.button == 2){
-                $(this).toggleClass("cell-flag cell-closed");
+    function updateField(response) {
+
+        var cells = response;
+        for (key in cells) {
+            if (key == "locator") {
+                $("#locator").html(cells[key]);
+            } else {
+                $("#" + key).toggleClass(cells[key], true);
+                $("#" + key).toggleClass("cell-closed");
             }
+        }
 
+    }
 
-        });
+    function selectChance(responce) {
+        for (key in responce) {
+            if (key == "chance") {
+                $("#chance").html(responce[key]);
+            } else {
+                $(key).toggleClass(responce[key], true);
+            }
+        }
+    }
 
-        $("#field_param").on("mousedown", "#param_btn" ,function (e){
+    $(".game").on("mousedown", ".cell-closed", function (e) {
 
-            minutesLabel.innerText = "00";
-            secondsLabel.innerText = "00";
-            totalSeconds = 0;
-            $.ajax ({
-                url: "field/new",
+        var dataObj = new Object();
+        dataObj.id = $(this).attr("id");
+        dataObj.x = $(this).data("x");
+        dataObj.y = $(this).data("y");
+        if (itemSelected == "locator") {
+            $.ajax({
+                url: "field/item/locator",
                 type: "POST",
-                data: $("#field_param").serialize(),
-                dataType: "html",
-                success: function (response) {
-                    isUsed = false;
-                    rebuildField(response);
-                    $('.bonus').removeClass('active');
-                }
+                data: dataObj,
+                dataType: "JSON",
+                success: updateField
             });
-
-        });
-
-        $(".item-locator").on("mousedown", function (e) {
-            if (itemSelected == "locator") itemSelected = "none"
-            else itemSelected = "locator";
-        })
-        $(".item-chance").on("mousedown", function (e) {
-            // $(".item-chance").unbind("mousedown");
-            if (!isUsed) {
-                $.ajax({
-                    url: "field/item/chance",
-                    type: "POST",
-                    dataType: "JSON",
-                    success: selectChance
-                });
-                isUsed = true;
+        } else if (e.button == 2) {
+            $(this).toggleClass("cell-flag cell-closed");
+        } else if (e.button == 0) {
+            $.ajax({
+                url: "field/cell",
+                type: "POST",
+                data: dataObj,
+                dataType: "JSON",
+                success: funcSuccess
+            });
+            if (!timer) {
+                timer = setInterval(setTime, 1000);
             }
-        })
+        }
+    });
 
-        $(".game").on({
-            mouseenter: function () {
-                if (itemSelected == "locator"){
-                    var x = $(this).attr("data-x");
-                    var y = $(this).attr("data-y");
-                    for (var i = y-1; i < Number(y)+2; i++){
-                        for (var j = x-1; j < Number(x)+2; j++){
-                            $("#cell" + i + "_" + j).toggleClass("cell-selected");
-                        }
-                    }
-                }
-            },
-            mouseleave: function () {
-                if (itemSelected == "locator"){
-                    var x = $(this).attr("data-x");
-                    var y = $(this).attr("data-y");
-                    for (var i = y-1; i < Number(y)+2; i++){
-                        for (var j = x-1; j < Number(x)+2; j++){
-                            $("#cell" + i + "_" + j).toggleClass("cell-selected");
-                        }
-                    }
-                }
-            }
-        }, ".field-cell");
+    $(".game").on("mousedown", ".cell-flag", function (e) {
+        if (e.button == 2) {
+            $(this).toggleClass("cell-flag cell-closed");
+        }
 
-        $(".close").on("mousedown", function (e) {
-            $("#zatemnenie").css("display", "none")
-        })
-
-        document.oncontextmenu = function() {return false;};
 
     });
+
+    $("#field_param").on("mousedown", "#param_btn", function (e) {
+
+        minutesLabel.innerText = "00";
+        secondsLabel.innerText = "00";
+        totalSeconds = 0;
+        $.ajax({
+            url: "field/new",
+            type: "POST",
+            data: $("#field_param").serialize(),
+            dataType: "html",
+            success: function (response) {
+                isUsed = false;
+                rebuildField(response);
+                $('.bonus').removeClass('active');
+            }
+        });
+
+    });
+
+    $(".item-locator").on("mousedown", function (e) {
+        if (itemSelected == "locator") itemSelected = "none"
+        else itemSelected = "locator";
+    })
+    $(".item-chance").on("mousedown", function (e) {
+        // $(".item-chance").unbind("mousedown");
+        if (!isUsed) {
+            $.ajax({
+                url: "field/item/chance",
+                type: "POST",
+                dataType: "JSON",
+                success: selectChance
+            });
+            isUsed = true;
+        }
+    })
+
+    $(".game").on({
+        mouseenter: function () {
+            if (itemSelected == "locator") {
+                var x = $(this).attr("data-x");
+                var y = $(this).attr("data-y");
+                for (var i = y - 1; i < Number(y) + 2; i++) {
+                    for (var j = x - 1; j < Number(x) + 2; j++) {
+                        $("#cell" + i + "_" + j).toggleClass("cell-selected");
+                    }
+                }
+            }
+        },
+        mouseleave: function () {
+            if (itemSelected == "locator") {
+                var x = $(this).attr("data-x");
+                var y = $(this).attr("data-y");
+                for (var i = y - 1; i < Number(y) + 2; i++) {
+                    for (var j = x - 1; j < Number(x) + 2; j++) {
+                        $("#cell" + i + "_" + j).toggleClass("cell-selected");
+                    }
+                }
+            }
+        }
+    }, ".field-cell");
+
+    $(".close").on("mousedown", function (e) {
+        $("#zatemnenie").css("display", "none")
+    })
+
+    document.oncontextmenu = function () {
+        return false;
+    };
+
+});
 
 let bombCount = $('#count');
 let fieldWidth = $('#width');
@@ -198,29 +200,49 @@ let fieldHeight = $('#height');
 let maxBombCount;
 
 
-fieldHeight.on('keyup change', function() {
-    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+fieldHeight.on('keyup change', function () {
+    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) - 1;
     bombCount.attr('max', maxBombCount);
-    if($(this).val() > 80){
+
+    if ($(this).val() > 80) {
         $(this).val(80);
     }
+
+    changeBombCount($);
 });
 
-fieldWidth.on('keyup change', function() {
-    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1;
+fieldWidth.on('keyup change', function () {
+    maxBombCount = (parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) - 1;
     bombCount.attr('max', maxBombCount);
-    if($(this).val() > 80){
+
+    if ($(this).val() > 80) {
         $(this).val(80);
     }
+
+    changeBombCount($);
 });
 
-bombCount.on('keyup change', function() {
-    maxBombCount = ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1) > 999 ? 999 :
-                                    ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) -1);
-    if($(this).val() > maxBombCount){
+bombCount.on('keyup change', function () {
+    maxBombCount = ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) - 1) > 999 ? 999 :
+        ((parseInt(fieldWidth.val()) * parseInt(fieldHeight.val())) - 1);
+
+    if ($(this).val() > maxBombCount) {
         $(this).val(maxBombCount);
     }
+
 });
+
+function changeBombCount($) {
+    totalCount = ($('#height').val() * $('#width').val()) - 1;
+
+    if ($('#count').val() > totalCount) {
+
+        if (totalCount <= 0) {
+            totalCount = 1;
+        }
+        $('#count').val(totalCount);
+    }
+}
 
 $('.bonus div:not(".item-chance")').click(function () {
     $(this).parent().toggleClass('active');
@@ -258,13 +280,28 @@ function pad(val) {
 }
 
 //shop
-$('input[name="amount"]').on('keyup change', function() {
-    let price =  $(this).parent('form').children('label').children('span.price').text();
-   if($(this).val() < 1) {
-       $(this).val(1);
-       $(this).parent('form').children('label').children('span.amount').text(price);
-   }
-   else {
-       $(this).parent('form').children('label').children('span.amount').text(price * $(this).val());
-   }
+$('input[name="amount"]').on('keyup change', function () {
+    let price = $(this).parent('form').children('label').children('span.price').text();
+    if ($(this).val() < 1) {
+        $(this).val(1);
+        $(this).parent('form').children('label').children('span.amount').text(price);
+    } else {
+        $(this).parent('form').children('label').children('span.amount').text(price * $(this).val());
+    }
+});
+
+$(document).ready(function () {
+    $('#notification').hide();
+});
+let wallet = $('#wallet');
+
+$('.shop-button').click(function () {
+    let price = $(this).parent('form').children('label').children('span.amount').text();
+
+    if(price > wallet.val()) {
+        $('#notification').show(300);
+    }
+    else {
+        $(this).parent('form').submit();
+    }
 });

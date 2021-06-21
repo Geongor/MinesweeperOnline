@@ -2,7 +2,6 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 }
 
@@ -51,8 +50,8 @@ body {
     height: 20px;
     min-width: 20px;
     min-height: 20px;
-    margin: 0px;
-    border: 0px solid black;
+    margin: 0;
+    border: 0 solid black;
     background-color: #464646;
     background-size: cover;
     display: table-cell;
@@ -218,4 +217,9 @@ header{
 
 .item-chance.cell-selected{
     border: 0!important;
+}
+
+
+.bx{
+    padding-left: 5px!important;
 }

@@ -13,7 +13,7 @@
 
 <!--    if the user is logged in -->
     <main class="mt-5 container">
-        <h1 class="h1 text-center">Minesweeper</h1>
+        <h1 class="h1 text-center pt-5">Minesweeper Online</h1>
         <div class="w-100 my-5 text-center">
             <img src="img/main.png" alt="Minesweeper">
         </div>
@@ -37,21 +37,26 @@
             </p>
         </div>
     </main>
-    <table class="table table table-striped">
+    <table class="table table table-striped w-50 mx-auto mb-5">
         <thead>
         <tr>
             <th scope="col">Имя пользователя</th>
-            <th scope="col" class="text-end pe-4">Действие</th>
+            <th scope="col"><a href="?sort=level">Уровень</a></th>
+            <th scope="col"><a href="?sort=record">Рекорд</a></th>
+            <th scope="col"><a href="?sort=points">Всого очков</a></th>
+
         </tr>
         </thead>
         <tr th:each="i : ${users}">
             <td><label th:text="${i.getUsername()}" ></label></td>
-            <td><label th:text="${' Уровень: ' + i.getLevel()}" ></label></td>
-            <td><label th:text="${' Рекорд: ' + i.getRecord()}" ></label></td>
-            <td><label th:text="${' Всего очков: ' + (i.getLevel() * 10000 + i.getExperience())}" ></label></td>
+            <td><label th:text="${i.getLevel()}" ></label></td>
+            <td><label th:text="${i.getRecord()}" ></label></td>
+            <td><label th:text="${(i.getLevel() * 10000 + i.getExperience())}" ></label></td>
         </tr>
     </table>
 <!--    -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

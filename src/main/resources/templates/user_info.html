@@ -8,6 +8,7 @@
     <link href="/css/config.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/boxicon.min.css">
+    <link rel="stylesheet" href="css/config.css">
 </head>
 <body>
     <header th:insert="layouts/header::header"></header>
@@ -80,5 +81,6 @@
         <div class="row text-center"><a th:href="@{'/admin/user/' + ${user.getUsername()} + '/report'}" target="_blank">Получить отчет</a></div>
     </main>
     <script src="/js/script.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
