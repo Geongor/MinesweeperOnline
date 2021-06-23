@@ -293,12 +293,14 @@ $('input[name="amount"]').on('keyup change', function () {
 $(document).ready(function () {
     $('#notification').hide();
 });
-let wallet = $('#wallet');
+
 
 $('.shop-button').click(function () {
+    let wallet = $('#wallet').text();
+    console.log(wallet);
     let price = $(this).parent('form').children('label').children('span.amount').text();
 
-    if(price > wallet.val()) {
+    if(parseInt(price) > parseInt(wallet)) {
         $('#notification').show(300);
     }
     else {
