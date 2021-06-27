@@ -20,6 +20,7 @@ $(document).ready(function () {
                 $("#zatemnenie").css("display", "block");
 
                 clearInterval(timer);
+                $('.game').css('pointer-events', 'none');
                 timer = null;
                 if (cells['status'] === 'win') {
                     $("#status").html("победили")
@@ -139,7 +140,7 @@ $(document).ready(function () {
                 $('.bonus').removeClass('active');
             }
         });
-
+        $('.game').css('pointer-events', '');
     });
 
     $(".item-locator").on("mousedown", function (e) {
